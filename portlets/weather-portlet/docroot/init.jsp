@@ -45,5 +45,5 @@ WindowState windowState = renderRequest.getWindowState();
 PortletPreferences preferences = renderRequest.getPreferences();
 
 String[] zips = preferences.getValues("zips", new String[0]);
-boolean fahrenheit = GetterUtil.getBoolean(preferences.getValue("fahrenheit", StringPool.BLANK));
+boolean fahrenheit = true;
 %>

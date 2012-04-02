@@ -39,7 +39,7 @@ for (int i = 0; i < zips.length; i++) {
 				</c:if>
 
 				<c:if test="<%= !fahrenheit %>">
-					<%= Math.round((.5555555555 * (weather.getCurrentTemp() + 459.67)) - 273.15) %> &deg;F
+					<%= Math.round((.5555555555 * (weather.getCurrentTemp() + 459.67)) - 273.15) %> &deg;C
 				</c:if>
 
 				</span>
