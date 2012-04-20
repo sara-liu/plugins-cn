@@ -14,7 +14,16 @@
 
 package com.liferay.interview.service.impl;
 
+import com.liferay.interview.QuestionTitleException;
+import com.liferay.interview.model.Question;
 import com.liferay.interview.service.base.QuestionLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.service.ServiceContext;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the question local service.
@@ -26,14 +35,101 @@ import com.liferay.interview.service.base.QuestionLocalServiceBaseImpl;
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
- * @author Sara Liu
+ * @author Andy
  * @see com.liferay.interview.service.base.QuestionLocalServiceBaseImpl
  * @see com.liferay.interview.service.QuestionLocalServiceUtil
  */
 public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.interview.service.QuestionLocalServiceUtil} to access the question local service.
-	 */
+
+	public Question addQuestion(
+			long userId, String title, String description,
+			long questionSetId, int type, int order,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		Question question = null;
+
+		validate(title);
+
+		long questionId = counterLocalService.increment();
+
+		question = questionPersistence.create(questionId);
+
+		Date now = new Date();
+
+		question.setUserId(userId);
+		question.setTitle(title);
+		question.setDescription(description);
+		question.setCreateDate(serviceContext.getCreateDate(now));
+		question.setModifiedDate(serviceContext.getModifiedDate(now));
+		question.setQuestionSetId(questionSetId);
+		question.setType(type);
+		question.setOrder(order);
+
+		questionPersistence.update(question, false);
+
+		return question;
+	}
+
+	public Question deleteQuestion(long questionId)
+		throws PortalException, SystemException {
+
+		Question question = questionPersistence.findByPrimaryKey(questionId);
+
+		deleteQuestion(question);
+
+		return question;
+	}
+
+	public void deleteQuestion(List<Question> questions)
+		throws SystemException {
+
+		for (Question question : questions) {
+			deleteQuestion(question);
+		}
+	}
+
+	public List<Question> getQuestions(long questionSetId, int start, int end)
+		throws SystemException {
+
+		List<Question> results = questionPersistence.findByQuestionSetId(
+			questionSetId);
+
+		return results;
+	}
+
+	public int getQuestionsCount(long questionSetId) throws SystemException {
+		return questionPersistence.countByQuestionSetId(questionSetId);
+	}
+
+	public Question updateQuestion(
+			long userId, String title, String description,
+			long questionSetId, long questionId, int type, int order,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		Question question = questionPersistence.findByPrimaryKey(questionId);
+
+		validate(title);
+
+		question.setUserId(userId);
+		question.setModifiedDate(serviceContext.getModifiedDate(null));
+		question.setTitle(title);
+		question.setDescription(description);
+		question.setType(type);
+		question.setOrder(order);
+
+		questionPersistence.updateImpl(question, false);
+
+		return question;
+	}
+
+	private void validate(String title)
+		throws PortalException, SystemException {
+
+		if (Validator.isNull(title)) {
+			throw new QuestionTitleException();
+		}
+	}
+
 }
