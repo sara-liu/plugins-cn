@@ -27,18 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The implementation of the question set local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.interview.service.QuestionSetLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
  * @author Sara Liu
- * @see com.liferay.interview.service.base.QuestionSetLocalServiceBaseImpl
- * @see com.liferay.interview.service.QuestionSetLocalServiceUtil
  */
 public class QuestionSetLocalServiceImpl
 	extends QuestionSetLocalServiceBaseImpl {
@@ -47,42 +36,30 @@ public class QuestionSetLocalServiceImpl
 			long userId, String title, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		validate(title);
-
 		Date now = new Date();
+
+		validate(title);
 
 		long questionSetId = counterLocalService.increment();
 
 		QuestionSet questionSet = questionSetPersistence.create(questionSetId);
 
-		questionSet.setTitle(title);
 		questionSet.setUserId(userId);
 		questionSet.setCreateDate(serviceContext.getCreateDate(now));
 		questionSet.setModifiedDate(serviceContext.getModifiedDate(now));
+		questionSet.setTitle(title);
 
 		questionSetPersistence.update(questionSet, false);
 
 		return questionSet;
 	}
 
-	public QuestionSet deleteSet(long questionSetId)
-		throws PortalException, SystemException{
+	public void deleteSet(long questionSetId)
+		throws PortalException, SystemException {
 
-		QuestionSet questionSet = questionSetPersistence.findByPrimaryKey(
-			questionSetId);
+		questionSetPersistence.remove(questionSetId);
 
-		List<Question> questions = questionPersistence.findByQuestionSetId(
-			questionSetId);
-
-		questionLocalService.deleteQuestion(questions);
-
-		deleteQuestionSet(questionSet);
-
-		return questionSet;
-	}
-
-	public int getQuestionSetCount() throws SystemException {
-		return questionSetPersistence.countAll();
+		questionLocalService.deleteQuestionSetQuestions(questionSetId);
 	}
 
 	public List<QuestionSet> getQuestionSets(int start, int end)
@@ -91,15 +68,18 @@ public class QuestionSetLocalServiceImpl
 		return questionSetPersistence.findAll(start, end);
 	}
 
+	public int getQuestionSetsCount() throws SystemException {
+		return questionSetPersistence.countAll();
+	}
+
 	public QuestionSet updateQuestionSet(
-			long questionSetId, long userId, String title,
-			ServiceContext serviceContext)
+			long userId, long questionSetId, String title, ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		validate(title);
 
 		QuestionSet questionSet = questionSetPersistence.findByPrimaryKey(
 			questionSetId);
-
-		validate(title);
 
 		questionSet.setUserId(userId);
 		questionSet.setModifiedDate(serviceContext.getModifiedDate(null));
@@ -110,9 +90,7 @@ public class QuestionSetLocalServiceImpl
 		return questionSet;
 	}
 
-	private void validate(String title)
-		throws PortalException, SystemException {
-
+	protected void validate(String title) throws PortalException {
 		if (Validator.isNull(title)) {
 			throw new QuestionSetTitleException();
 		}

@@ -26,43 +26,29 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The implementation of the question local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.interview.service.QuestionLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
- * @author Andy
- * @see com.liferay.interview.service.base.QuestionLocalServiceBaseImpl
- * @see com.liferay.interview.service.QuestionLocalServiceUtil
+ * @author Andy Yang
  */
 public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 
 	public Question addQuestion(
-			long userId, String title, String description,
-			long questionSetId, int type, int order,
-			ServiceContext serviceContext)
+			long userId, String title, String description, long questionSetId, int type,
+			int order, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Question question = null;
+		Date now = new Date();
 
 		validate(title);
 
 		long questionId = counterLocalService.increment();
 
-		question = questionPersistence.create(questionId);
-
-		Date now = new Date();
+		Question question = questionPersistence.create(questionId);
 
 		question.setUserId(userId);
-		question.setTitle(title);
-		question.setDescription(description);
 		question.setCreateDate(serviceContext.getCreateDate(now));
 		question.setModifiedDate(serviceContext.getModifiedDate(now));
 		question.setQuestionSetId(questionSetId);
+		question.setTitle(title);
+		question.setDescription(description);
 		question.setType(type);
 		question.setOrder(order);
 
@@ -71,49 +57,42 @@ public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 		return question;
 	}
 
-	public Question deleteQuestion(long questionId)
+	public void deleteQuestionSetQuestions(long questionSetId)
 		throws PortalException, SystemException {
 
-		Question question = questionPersistence.findByPrimaryKey(questionId);
-
-		deleteQuestion(question);
-
-		return question;
-	}
-
-	public void deleteQuestion(List<Question> questions)
-		throws SystemException {
+		List<Question> questions = questionPersistence.findByQuestionSetId(
+			questionSetId);
 
 		for (Question question : questions) {
 			deleteQuestion(question);
 		}
 	}
 
-	public List<Question> getQuestions(long questionSetId, int start, int end)
+	public List<Question> getQuestionSetQuestions(
+			long questionSetId, int start, int end)
 		throws SystemException {
 
-		List<Question> results = questionPersistence.findByQuestionSetId(
-			questionSetId);
-
-		return results;
+		return questionPersistence.findByQuestionSetId(questionSetId);
 	}
 
-	public int getQuestionsCount(long questionSetId) throws SystemException {
+	public int getQuestionSetQuestionsCount(long questionSetId)
+		throws SystemException {
+
 		return questionPersistence.countByQuestionSetId(questionSetId);
 	}
 
 	public Question updateQuestion(
-			long userId, String title, String description,
-			long questionSetId, long questionId, int type, int order,
-			ServiceContext serviceContext)
+			long userId, long questionId, long questionSetId, String title,
+			String description, int type, int order, ServiceContext serviceContext)
 		throws PortalException, SystemException {
-
-		Question question = questionPersistence.findByPrimaryKey(questionId);
 
 		validate(title);
 
+		Question question = questionPersistence.findByPrimaryKey(questionId);
+
 		question.setUserId(userId);
 		question.setModifiedDate(serviceContext.getModifiedDate(null));
+		question.setQuestionSetId(questionSetId);
 		question.setTitle(title);
 		question.setDescription(description);
 		question.setType(type);
@@ -124,9 +103,7 @@ public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 		return question;
 	}
 
-	private void validate(String title)
-		throws PortalException, SystemException {
-
+	protected void validate(String title) throws PortalException {
 		if (Validator.isNull(title)) {
 			throw new QuestionTitleException();
 		}
