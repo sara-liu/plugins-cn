@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.liferay.interview.service.InterviewLocalService" class="com.liferay.interview.service.impl.InterviewLocalServiceImpl" />
+	<bean id="com.liferay.interview.service.InterviewLocalServiceUtil" class="com.liferay.interview.service.InterviewLocalServiceUtil">
+		<property name="service" ref="com.liferay.interview.service.InterviewLocalService" />
+	</bean>
+	<bean id="com.liferay.interview.service.persistence.InterviewPersistence" class="com.liferay.interview.service.persistence.InterviewPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.interview.service.QuestionLocalService" class="com.liferay.interview.service.impl.QuestionLocalServiceImpl" />
+	<bean id="com.liferay.interview.service.QuestionLocalServiceUtil" class="com.liferay.interview.service.QuestionLocalServiceUtil">
+		<property name="service" ref="com.liferay.interview.service.QuestionLocalService" />
+	</bean>
+	<bean id="com.liferay.interview.service.persistence.QuestionPersistence" class="com.liferay.interview.service.persistence.QuestionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.interview.service.QuestionSetLocalService" class="com.liferay.interview.service.impl.QuestionSetLocalServiceImpl" />
+	<bean id="com.liferay.interview.service.QuestionSetLocalServiceUtil" class="com.liferay.interview.service.QuestionSetLocalServiceUtil">
+		<property name="service" ref="com.liferay.interview.service.QuestionSetLocalService" />
+	</bean>
+	<bean id="com.liferay.interview.service.persistence.QuestionSetPersistence" class="com.liferay.interview.service.persistence.QuestionSetPersistenceImpl" parent="basePersistence" />
+</beans>
