@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_0_0.dtd">
+
+<service-builder package-path="com.liferay.interview">
+	<author>Sara Liu</author>
+	<namespace>Interview</namespace>
+	<entity name="Interview" uuid="true" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="interviewId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="emailAddress" type="String" />
+		<column name="startDate" type="Date" />
+		<column name="expireDate" type="Date" />
+		<column name="questionSetId" type="long" />
+		<column name="response" type="String" />
+	</entity>
+	<entity name="QuestionSet" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="questionSetId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="title" type="String" />
+	</entity>
+	<entity name="Question" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="questionId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="questionSetId" type="long" />
+		<column name="title" type="String" />
+		<column name="description" type="String" />
+		<column name="type" type="int" />
+		<column name="order" type="int" />
+
+		<!--  Finder methods -->
+
+		<finder name="QuestionSetId" return-type="Collection">
+			<finder-column name="questionSetId" />
+		</finder>
+	</entity>
+	<exceptions>
+		<exception>Name</exception>
+		<exception>QuestionTitle</exception>
+		<exception>QuestionSetTitle</exception>
+	</exceptions>
+</service-builder>
