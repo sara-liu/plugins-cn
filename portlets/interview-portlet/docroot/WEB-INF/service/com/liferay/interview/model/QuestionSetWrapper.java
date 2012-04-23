@@ -209,7 +209,7 @@ public class QuestionSetWrapper implements QuestionSet,
 		return new QuestionSetWrapper((QuestionSet)_questionSet.clone());
 	}
 
-	public int compareTo(QuestionSet questionSet) {
+	public int compareTo(com.liferay.interview.model.QuestionSet questionSet) {
 		return _questionSet.compareTo(questionSet);
 	}
 
@@ -218,11 +218,11 @@ public class QuestionSetWrapper implements QuestionSet,
 		return _questionSet.hashCode();
 	}
 
-	public com.liferay.portal.model.CacheModel<QuestionSet> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.interview.model.QuestionSet> toCacheModel() {
 		return _questionSet.toCacheModel();
 	}
 
-	public QuestionSet toEscapedModel() {
+	public com.liferay.interview.model.QuestionSet toEscapedModel() {
 		return new QuestionSetWrapper(_questionSet.toEscapedModel());
 	}
 

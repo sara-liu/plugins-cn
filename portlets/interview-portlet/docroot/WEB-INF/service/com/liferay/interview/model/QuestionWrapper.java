@@ -280,7 +280,7 @@ public class QuestionWrapper implements Question, ModelWrapper<Question> {
 		return new QuestionWrapper((Question)_question.clone());
 	}
 
-	public int compareTo(Question question) {
+	public int compareTo(com.liferay.interview.model.Question question) {
 		return _question.compareTo(question);
 	}
 
@@ -289,11 +289,11 @@ public class QuestionWrapper implements Question, ModelWrapper<Question> {
 		return _question.hashCode();
 	}
 
-	public com.liferay.portal.model.CacheModel<Question> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.interview.model.Question> toCacheModel() {
 		return _question.toCacheModel();
 	}
 
-	public Question toEscapedModel() {
+	public com.liferay.interview.model.Question toEscapedModel() {
 		return new QuestionWrapper(_question.toEscapedModel());
 	}
 

@@ -230,4 +230,31 @@ public interface QuestionLocalService extends PersistedModelLocalService {
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
+
+	public com.liferay.interview.model.Question addQuestion(long userId,
+		java.lang.String title, java.lang.String description,
+		long questionSetId, int type, int order,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void deleteQuestionSetQuestions(long questionSetId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
+		long questionSetId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getQuestionSetQuestionsCount(long questionSetId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.interview.model.Question updateQuestion(long userId,
+		long questionId, long questionSetId, java.lang.String title,
+		java.lang.String description, int type, int order,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

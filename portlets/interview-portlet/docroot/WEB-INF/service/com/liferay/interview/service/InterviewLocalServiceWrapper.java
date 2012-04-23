@@ -252,6 +252,28 @@ public class InterviewLocalServiceWrapper implements InterviewLocalService,
 		_interviewLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public com.liferay.interview.model.Interview addInterview(long userId,
+		java.lang.String name, java.lang.String emailAddress,
+		java.util.Date expireDate, long questionSetId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _interviewLocalService.addInterview(userId, name, emailAddress,
+			expireDate, questionSetId, serviceContext);
+	}
+
+	public com.liferay.interview.model.Interview updateInterview(long userId,
+		long interviewId, java.lang.String name, java.lang.String emailAddress,
+		java.util.Date startDate, java.util.Date expireDate,
+		long questionSetId, java.lang.String response,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _interviewLocalService.updateInterview(userId, interviewId,
+			name, emailAddress, startDate, expireDate, questionSetId, response,
+			serviceContext);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

@@ -316,7 +316,7 @@ public class InterviewWrapper implements Interview, ModelWrapper<Interview> {
 		return new InterviewWrapper((Interview)_interview.clone());
 	}
 
-	public int compareTo(Interview interview) {
+	public int compareTo(com.liferay.interview.model.Interview interview) {
 		return _interview.compareTo(interview);
 	}
 
@@ -325,11 +325,11 @@ public class InterviewWrapper implements Interview, ModelWrapper<Interview> {
 		return _interview.hashCode();
 	}
 
-	public com.liferay.portal.model.CacheModel<Interview> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.interview.model.Interview> toCacheModel() {
 		return _interview.toCacheModel();
 	}
 
-	public Interview toEscapedModel() {
+	public com.liferay.interview.model.Interview toEscapedModel() {
 		return new InterviewWrapper(_interview.toEscapedModel());
 	}
 

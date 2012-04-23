@@ -250,6 +250,44 @@ public class QuestionLocalServiceWrapper implements QuestionLocalService,
 		_questionLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	public com.liferay.interview.model.Question addQuestion(long userId,
+		java.lang.String title, java.lang.String description,
+		long questionSetId, int type, int order,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _questionLocalService.addQuestion(userId, title, description,
+			questionSetId, type, order, serviceContext);
+	}
+
+	public void deleteQuestionSetQuestions(long questionSetId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_questionLocalService.deleteQuestionSetQuestions(questionSetId);
+	}
+
+	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
+		long questionSetId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _questionLocalService.getQuestionSetQuestions(questionSetId,
+			start, end);
+	}
+
+	public int getQuestionSetQuestionsCount(long questionSetId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _questionLocalService.getQuestionSetQuestionsCount(questionSetId);
+	}
+
+	public com.liferay.interview.model.Question updateQuestion(long userId,
+		long questionId, long questionSetId, java.lang.String title,
+		java.lang.String description, int type, int order,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _questionLocalService.updateQuestion(userId, questionId,
+			questionSetId, title, description, type, order, serviceContext);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */
