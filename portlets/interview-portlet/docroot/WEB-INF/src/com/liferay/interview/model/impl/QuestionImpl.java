@@ -24,7 +24,7 @@ package com.liferay.interview.model.impl;
  * @author Sara Liu
  */
 public class QuestionImpl extends QuestionBaseImpl {
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a question model instance should use the {@link com.liferay.interview.model.Question} interface instead.

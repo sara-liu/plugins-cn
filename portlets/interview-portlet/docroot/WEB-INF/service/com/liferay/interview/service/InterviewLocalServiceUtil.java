@@ -262,27 +262,37 @@ public class InterviewLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.Interview addInterview(
-		long userId, java.lang.String name, java.lang.String emailAddress,
-		java.util.Date expireDate, long questionSetId,
+		java.lang.String name, java.lang.String emailAddress,
+		long questionSetId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addInterview(userId, name, emailAddress, expireDate,
-			questionSetId, serviceContext);
+				   .addInterview(name, emailAddress, questionSetId,
+			serviceContext);
 	}
 
 	public static com.liferay.interview.model.Interview updateInterview(
-		long userId, long interviewId, java.lang.String name,
-		java.lang.String emailAddress, java.util.Date startDate,
-		java.util.Date expireDate, long questionSetId,
-		java.lang.String response,
+		long interviewId, java.lang.String name, java.lang.String emailAddress,
+		java.util.Date startDate, java.util.Date expireDate,
+		long questionSetId, java.lang.String response,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateInterview(userId, interviewId, name, emailAddress,
-			startDate, expireDate, questionSetId, response, serviceContext);
+				   .updateInterview(interviewId, name, emailAddress, startDate,
+			expireDate, questionSetId, response, serviceContext);
+	}
+
+	public static com.liferay.interview.model.Interview updateInterview(
+		long interviewId, java.lang.String name, java.lang.String emailAddress,
+		long questionSetId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateInterview(interviewId, name, emailAddress,
+			questionSetId, serviceContext);
 	}
 
 	public static void clearService() {

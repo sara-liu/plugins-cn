@@ -1,4 +1,4 @@
-<%
+<%--
 /**
  * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
  *
@@ -12,10 +12,30 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
+
+<%@ include file="/admin/init.jsp" %>
+
+<%
+String tabs1 = ParamUtil.getString(request, "tabs1", "interviews");
 %>
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<portlet:renderURL var="portletURL">
+	<portlet:param name="mvcPath" value="/admin/view.jsp" />
+	<portlet:param name="tabs1" value="<%= tabs1 %>" />
+</portlet:renderURL>
 
-<portlet:defineObjects />
+<liferay-ui:tabs
+	names="interviews,question-sets"
+	param="tabs1"
+	url="<%= portletURL %>"
+/>
 
-This is the <b>Interview (Admin)</b> portlet.
+<c:choose>
+	<c:when test='<%= tabs1.equals("interviews") %>'>
+		<%@ include file="/admin/view_interviews.jspf" %>
+	</c:when>
+	<c:when test='<%= tabs1.equals("question-sets") %>'>
+		<%@ include file="/admin/view_question_sets.jspf" %>
+	</c:when>
+</c:choose>

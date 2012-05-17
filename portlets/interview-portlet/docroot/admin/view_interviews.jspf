@@ -1,0 +1,76 @@
+<%--
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%
+String interviewColumns = "name,emailAddress,responded";
+%>
+
+<portlet:renderURL var="editInterviewURL">
+	<portlet:param name="mvcPath" value="/admin/edit_interview.jsp" />
+	<portlet:param name="redirect" value="<%= currentURL %>" />
+</portlet:renderURL>
+
+<aui:button-row>
+	<aui:button href="<%= editInterviewURL %>" value="add-interview" />
+</aui:button-row>
+
+<liferay-ui:search-container
+	emptyResultsMessage="there-are-no-interviews"
+	headerNames="<%= interviewColumns %>"
+>
+	<liferay-ui:search-container-results
+		results="<%= InterviewLocalServiceUtil.getInterviews(searchContainer.getStart(), searchContainer.getEnd()) %>"
+		total="<%= InterviewLocalServiceUtil.getInterviewsCount() %>"
+	/>
+
+	<liferay-ui:search-container-row
+		className="com.liferay.interview.model.Interview"
+		escapedModel="<%= true %>"
+		keyProperty="interviewId"
+		modelVar="interview"
+	>
+		<portlet:renderURL var="rowURL">
+			<portlet:param name="interviewId" value="<%= String.valueOf(interview.getInterviewId()) %>" />
+			<portlet:param name="mvcPath" value="/admin/edit_interview.jsp" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+		</portlet:renderURL>
+
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="name"
+			value="<%= interview.getName() %>"
+		/>
+
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="emailAddress"
+			value="<%= interview.getEmailAddress() %>"
+		/>
+
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="responded"
+			value='<%= interview.getResponse().equals(StringPool.BLANK) ? StringPool.BLANK : "yes" %>'
+		/>
+
+		<liferay-ui:search-container-column-jsp
+			align="right"
+			path="/admin/interview_action.jsp"
+		/>
+	</liferay-ui:search-container-row>
+
+	<liferay-ui:search-iterator />
+</liferay-ui:search-container>

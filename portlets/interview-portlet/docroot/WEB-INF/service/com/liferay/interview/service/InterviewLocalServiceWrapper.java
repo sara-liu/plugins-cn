@@ -252,26 +252,36 @@ public class InterviewLocalServiceWrapper implements InterviewLocalService,
 		_interviewLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
-	public com.liferay.interview.model.Interview addInterview(long userId,
+	public com.liferay.interview.model.Interview addInterview(
 		java.lang.String name, java.lang.String emailAddress,
-		java.util.Date expireDate, long questionSetId,
+		long questionSetId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _interviewLocalService.addInterview(userId, name, emailAddress,
-			expireDate, questionSetId, serviceContext);
+		return _interviewLocalService.addInterview(name, emailAddress,
+			questionSetId, serviceContext);
 	}
 
-	public com.liferay.interview.model.Interview updateInterview(long userId,
+	public com.liferay.interview.model.Interview updateInterview(
 		long interviewId, java.lang.String name, java.lang.String emailAddress,
 		java.util.Date startDate, java.util.Date expireDate,
 		long questionSetId, java.lang.String response,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _interviewLocalService.updateInterview(userId, interviewId,
-			name, emailAddress, startDate, expireDate, questionSetId, response,
+		return _interviewLocalService.updateInterview(interviewId, name,
+			emailAddress, startDate, expireDate, questionSetId, response,
 			serviceContext);
+	}
+
+	public com.liferay.interview.model.Interview updateInterview(
+		long interviewId, java.lang.String name, java.lang.String emailAddress,
+		long questionSetId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _interviewLocalService.updateInterview(interviewId, name,
+			emailAddress, questionSetId, serviceContext);
 	}
 
 	/**

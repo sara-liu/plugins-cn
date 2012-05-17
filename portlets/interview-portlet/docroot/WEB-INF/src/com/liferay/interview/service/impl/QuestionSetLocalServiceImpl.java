@@ -15,7 +15,6 @@
 package com.liferay.interview.service.impl;
 
 import com.liferay.interview.QuestionSetTitleException;
-import com.liferay.interview.model.Question;
 import com.liferay.interview.model.QuestionSet;
 import com.liferay.interview.service.base.QuestionSetLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;

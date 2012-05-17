@@ -14,6 +14,4 @@
  */
 --%>
 
-<%@ include file="/display/init.jsp" %>
-
-This is the <b>Interview (Display)</b> portlet.
+<%@ include file="/init.jsp" %>

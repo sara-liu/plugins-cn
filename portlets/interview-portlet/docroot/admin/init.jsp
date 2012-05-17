@@ -14,6 +14,15 @@
  */
 --%>
 
-<%@ include file="/display/init.jsp" %>
+<%@ include file="/init.jsp" %>
 
-This is the <b>Interview (Display)</b> portlet.
+<%@ page import="com.liferay.interview.InterviewNameException" %><%@
+page import="com.liferay.interview.NoSuchInterviewException" %><%@
+page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
+page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
+page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
+page import="com.liferay.portal.kernel.util.WebKeys" %>
+
+page import="com.liferay.interview.InterviewEmailAddressException" %>
+
+page import="java.util.List" %>

@@ -85,15 +85,18 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 				"setBeanIdentifier", java.lang.String.class);
 
 		_addInterviewMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addInterview", long.class, java.lang.String.class,
-				java.lang.String.class, java.util.Date.class, long.class,
-				com.liferay.portal.service.ServiceContext.class);
+				"addInterview", java.lang.String.class, java.lang.String.class,
+				long.class, com.liferay.portal.service.ServiceContext.class);
 
 		_updateInterviewMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateInterview", long.class, long.class,
-				java.lang.String.class, java.lang.String.class,
-				java.util.Date.class, java.util.Date.class, long.class,
-				java.lang.String.class,
+				"updateInterview", long.class, java.lang.String.class,
+				java.lang.String.class, java.util.Date.class,
+				java.util.Date.class, long.class, java.lang.String.class,
+				com.liferay.portal.service.ServiceContext.class);
+
+		_updateInterviewMethodKey19 = new MethodKey(_classLoaderProxy.getClassName(),
+				"updateInterview", long.class, java.lang.String.class,
+				java.lang.String.class, long.class,
 				com.liferay.portal.service.ServiceContext.class);
 	}
 
@@ -559,18 +562,17 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 		}
 	}
 
-	public com.liferay.interview.model.Interview addInterview(long userId,
+	public com.liferay.interview.model.Interview addInterview(
 		java.lang.String name, java.lang.String emailAddress,
-		java.util.Date expireDate, long questionSetId,
+		long questionSetId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addInterviewMethodKey17,
-				userId, ClpSerializer.translateInput(name),
-				ClpSerializer.translateInput(emailAddress),
-				ClpSerializer.translateInput(expireDate), questionSetId,
+				ClpSerializer.translateInput(name),
+				ClpSerializer.translateInput(emailAddress), questionSetId,
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
@@ -597,7 +599,7 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 		return (com.liferay.interview.model.Interview)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.interview.model.Interview updateInterview(long userId,
+	public com.liferay.interview.model.Interview updateInterview(
 		long interviewId, java.lang.String name, java.lang.String emailAddress,
 		java.util.Date startDate, java.util.Date expireDate,
 		long questionSetId, java.lang.String response,
@@ -607,11 +609,48 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateInterviewMethodKey18,
-				userId, interviewId, ClpSerializer.translateInput(name),
+				interviewId, ClpSerializer.translateInput(name),
 				ClpSerializer.translateInput(emailAddress),
 				ClpSerializer.translateInput(startDate),
 				ClpSerializer.translateInput(expireDate), questionSetId,
 				ClpSerializer.translateInput(response),
+				ClpSerializer.translateInput(serviceContext));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.interview.model.Interview)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.interview.model.Interview updateInterview(
+		long interviewId, java.lang.String name, java.lang.String emailAddress,
+		long questionSetId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_updateInterviewMethodKey19,
+				interviewId, ClpSerializer.translateInput(name),
+				ClpSerializer.translateInput(emailAddress), questionSetId,
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
@@ -662,4 +701,5 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 	private MethodKey _setBeanIdentifierMethodKey16;
 	private MethodKey _addInterviewMethodKey17;
 	private MethodKey _updateInterviewMethodKey18;
+	private MethodKey _updateInterviewMethodKey19;
 }

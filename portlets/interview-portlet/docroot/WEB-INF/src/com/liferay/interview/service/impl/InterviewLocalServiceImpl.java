@@ -32,8 +32,8 @@ import java.util.List;
 public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 
 	public Interview addInterview(
-			long userId, String name, String emailAddress, Date expireDate,
-			long questionSetId, ServiceContext serviceContext)
+			String name, String emailAddress, long questionSetId,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		Date now = new Date();
@@ -50,7 +50,6 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		interview.setModifiedDate(serviceContext.getModifiedDate(now));
 		interview.setName(name);
 		interview.setEmailAddress(emailAddress);
-		interview.setExpireDate(expireDate);
 		interview.setQuestionSetId(questionSetId);
 
 		interviewPersistence.update(interview, false);
@@ -69,7 +68,7 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 	}
 
 	public Interview updateInterview(
-			long userId, long interviewId, String name, String emailAddress,
+			long interviewId, String name, String emailAddress,
 			Date startDate, Date expireDate, long questionSetId, String response,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -79,7 +78,7 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		Interview interview = interviewPersistence.findByPrimaryKey(
 			interviewId);
 
-		interview.setUserId(userId);
+		interview.setUserId(serviceContext.getUserId());
 		interview.setModifiedDate(serviceContext.getModifiedDate(null));
 		interview.setName(name);
 		interview.setEmailAddress(emailAddress);
@@ -87,6 +86,27 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		interview.setExpireDate(expireDate);
 		interview.setQuestionSetId(questionSetId);
 		interview.setResponse(response);
+
+		interviewPersistence.updateImpl(interview, false);
+
+		return interview;
+	}
+
+	public Interview updateInterview(
+			long interviewId, String name, String emailAddress,
+			long questionSetId, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		validate(name, emailAddress);
+
+		Interview interview = interviewPersistence.findByPrimaryKey(
+			interviewId);
+
+		interview.setUserId(serviceContext.getUserId());
+		interview.setModifiedDate(serviceContext.getModifiedDate(null));
+		interview.setName(name);
+		interview.setEmailAddress(emailAddress);
+		interview.setQuestionSetId(questionSetId);
 
 		interviewPersistence.updateImpl(interview, false);
 
