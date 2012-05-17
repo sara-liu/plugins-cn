@@ -14,10 +14,10 @@
 
 package com.liferay.interview.service.impl;
 
-import com.liferay.interview.NameException;
+import com.liferay.interview.InterviewEmailAddressException;
+import com.liferay.interview.InterviewNameException;
 import com.liferay.interview.model.Interview;
 import com.liferay.interview.service.base.InterviewLocalServiceBaseImpl;
-import com.liferay.portal.UserEmailAddressException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
@@ -97,11 +97,11 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		throws PortalException {
 
 		if (!Validator.isEmailAddress(emailAddress)) {
-			throw new UserEmailAddressException();
+			throw new InterviewEmailAddressException();
 		}
 
 		if (Validator.isNull(name)) {
-			throw new NameException();
+			throw new InterviewNameException();
 		}
 	}
 

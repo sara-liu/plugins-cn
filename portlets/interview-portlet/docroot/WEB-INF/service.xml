@@ -68,7 +68,8 @@
 		</finder>
 	</entity>
 	<exceptions>
-		<exception>Name</exception>
+		<exception>InterviewEmailAddress</exception>
+		<exception>InterviewName</exception>
 		<exception>QuestionTitle</exception>
 		<exception>QuestionSetTitle</exception>
 	</exceptions>

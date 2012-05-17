@@ -19,21 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Sara Liu
  */
-public class NameException extends PortalException {
+public class InterviewNameException extends PortalException {
 
-	public NameException() {
+	public InterviewNameException() {
 		super();
 	}
 
-	public NameException(String msg) {
+	public InterviewNameException(String msg) {
 		super(msg);
 	}
 
-	public NameException(String msg, Throwable cause) {
+	public InterviewNameException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public NameException(Throwable cause) {
+	public InterviewNameException(Throwable cause) {
 		super(cause);
 	}
 
