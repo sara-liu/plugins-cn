@@ -28,6 +28,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+
 public class AdminPortlet extends MVCPortlet {
 
 	public void deleteInterview(
@@ -78,6 +79,12 @@ public class AdminPortlet extends MVCPortlet {
 				e instanceof InterviewNameException) {
 
 				SessionErrors.add(actionRequest, e.getClass().getName());
+
+				actionResponse.setRenderParameter(
+					"mvcPath", "/admin/edit_interview.jsp");
+				actionResponse.setRenderParameter("redirect", currentURL);
+
+				return;
 			}
 			else {
 				throw e;
