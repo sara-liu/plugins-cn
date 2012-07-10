@@ -19,7 +19,7 @@
 <%
 String tabs1 = ParamUtil.getString(request, "tabs1", "interviews");
 %>
-
+dddd
 <portlet:renderURL var="portletURL">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 	<portlet:param name="tabs1" value="<%= tabs1 %>" />
