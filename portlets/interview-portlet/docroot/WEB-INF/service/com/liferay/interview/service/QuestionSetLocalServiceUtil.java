@@ -67,25 +67,28 @@ public class QuestionSetLocalServiceUtil {
 	* Deletes the question set with the primary key from the database. Also notifies the appropriate model listeners.
 	*
 	* @param questionSetId the primary key of the question set
+	* @return the question set that was removed
 	* @throws PortalException if a question set with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void deleteQuestionSet(long questionSetId)
+	public static com.liferay.interview.model.QuestionSet deleteQuestionSet(
+		long questionSetId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService().deleteQuestionSet(questionSetId);
+		return getService().deleteQuestionSet(questionSetId);
 	}
 
 	/**
 	* Deletes the question set from the database. Also notifies the appropriate model listeners.
 	*
 	* @param questionSet the question set
+	* @return the question set that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void deleteQuestionSet(
+	public static com.liferay.interview.model.QuestionSet deleteQuestionSet(
 		com.liferay.interview.model.QuestionSet questionSet)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		getService().deleteQuestionSet(questionSet);
+		return getService().deleteQuestionSet(questionSet);
 	}
 
 	/**
@@ -262,11 +265,11 @@ public class QuestionSetLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.QuestionSet addQuestionSet(
-		long userId, java.lang.String title,
+		java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addQuestionSet(userId, title, serviceContext);
+		return getService().addQuestionSet(title, serviceContext);
 	}
 
 	public static void deleteSet(long questionSetId)
@@ -276,13 +279,12 @@ public class QuestionSetLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long userId, long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateQuestionSet(userId, questionSetId, title,
-			serviceContext);
+				   .updateQuestionSet(questionSetId, title, serviceContext);
 	}
 
 	public static void clearService() {

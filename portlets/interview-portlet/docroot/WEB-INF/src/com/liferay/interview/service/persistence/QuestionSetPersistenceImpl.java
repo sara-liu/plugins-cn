@@ -41,7 +41,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
-import com.liferay.portal.service.persistence.ResourcePersistence;
 import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
@@ -151,7 +150,6 @@ public class QuestionSetPersistenceImpl extends BasePersistenceImpl<QuestionSet>
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@Override
 	public void clearCache(List<QuestionSet> questionSets) {
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -610,8 +608,6 @@ public class QuestionSetPersistenceImpl extends BasePersistenceImpl<QuestionSet>
 	protected QuestionPersistence questionPersistence;
 	@BeanReference(type = QuestionSetPersistence.class)
 	protected QuestionSetPersistence questionSetPersistence;
-	@BeanReference(type = ResourcePersistence.class)
-	protected ResourcePersistence resourcePersistence;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private static final String _SQL_SELECT_QUESTIONSET = "SELECT questionSet FROM QuestionSet questionSet";

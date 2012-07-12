@@ -67,10 +67,12 @@ public interface QuestionSetLocalService extends PersistedModelLocalService {
 	* Deletes the question set with the primary key from the database. Also notifies the appropriate model listeners.
 	*
 	* @param questionSetId the primary key of the question set
+	* @return the question set that was removed
 	* @throws PortalException if a question set with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public void deleteQuestionSet(long questionSetId)
+	public com.liferay.interview.model.QuestionSet deleteQuestionSet(
+		long questionSetId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -78,9 +80,10 @@ public interface QuestionSetLocalService extends PersistedModelLocalService {
 	* Deletes the question set from the database. Also notifies the appropriate model listeners.
 	*
 	* @param questionSet the question set
+	* @return the question set that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public void deleteQuestionSet(
+	public com.liferay.interview.model.QuestionSet deleteQuestionSet(
 		com.liferay.interview.model.QuestionSet questionSet)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -235,7 +238,7 @@ public interface QuestionSetLocalService extends PersistedModelLocalService {
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
 
-	public com.liferay.interview.model.QuestionSet addQuestionSet(long userId,
+	public com.liferay.interview.model.QuestionSet addQuestionSet(
 		java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -246,7 +249,7 @@ public interface QuestionSetLocalService extends PersistedModelLocalService {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long userId, long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

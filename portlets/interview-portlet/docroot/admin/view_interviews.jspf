@@ -17,7 +17,6 @@
 <%
 String interviewColumns = "name,emailAddress,responded";
 %>
-
 <portlet:renderURL var="editInterviewURL">
 	<portlet:param name="mvcPath" value="/admin/edit_interview.jsp" />
 	<portlet:param name="redirect" value="<%= currentURL %>" />

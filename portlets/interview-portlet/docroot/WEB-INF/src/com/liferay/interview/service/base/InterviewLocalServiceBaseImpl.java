@@ -31,19 +31,14 @@ import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistryUtil;
-import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PersistedModel;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
 import com.liferay.portal.service.ResourceLocalService;
-import com.liferay.portal.service.ResourceService;
 import com.liferay.portal.service.UserLocalService;
 import com.liferay.portal.service.UserService;
-import com.liferay.portal.service.persistence.ResourcePersistence;
 import com.liferay.portal.service.persistence.UserPersistence;
 
 import java.io.Serializable;
@@ -79,26 +74,12 @@ public abstract class InterviewLocalServiceBaseImpl
 	 * @return the interview that was added
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public Interview addInterview(Interview interview)
 		throws SystemException {
 		interview.setNew(true);
 
-		interview = interviewPersistence.update(interview, false);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());
-
-		if (indexer != null) {
-			try {
-				indexer.reindex(interview);
-			}
-			catch (SearchException se) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(se, se);
-				}
-			}
-		}
-
-		return interview;
+		return interviewPersistence.update(interview, false);
 	}
 
 	/**
@@ -115,48 +96,27 @@ public abstract class InterviewLocalServiceBaseImpl
 	 * Deletes the interview with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param interviewId the primary key of the interview
+	 * @return the interview that was removed
 	 * @throws PortalException if a interview with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void deleteInterview(long interviewId)
+	@Indexable(type = IndexableType.DELETE)
+	public Interview deleteInterview(long interviewId)
 		throws PortalException, SystemException {
-		Interview interview = interviewPersistence.remove(interviewId);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());
-
-		if (indexer != null) {
-			try {
-				indexer.delete(interview);
-			}
-			catch (SearchException se) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(se, se);
-				}
-			}
-		}
+		return interviewPersistence.remove(interviewId);
 	}
 
 	/**
 	 * Deletes the interview from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param interview the interview
+	 * @return the interview that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void deleteInterview(Interview interview) throws SystemException {
-		interviewPersistence.remove(interview);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());
-
-		if (indexer != null) {
-			try {
-				indexer.delete(interview);
-			}
-			catch (SearchException se) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(se, se);
-				}
-			}
-		}
+	@Indexable(type = IndexableType.DELETE)
+	public Interview deleteInterview(Interview interview)
+		throws SystemException {
+		return interviewPersistence.remove(interview);
 	}
 
 	/**
@@ -281,6 +241,7 @@ public abstract class InterviewLocalServiceBaseImpl
 	 * @return the interview that was updated
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public Interview updateInterview(Interview interview)
 		throws SystemException {
 		return updateInterview(interview, true);
@@ -294,26 +255,12 @@ public abstract class InterviewLocalServiceBaseImpl
 	 * @return the interview that was updated
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public Interview updateInterview(Interview interview, boolean merge)
 		throws SystemException {
 		interview.setNew(false);
 
-		interview = interviewPersistence.update(interview, merge);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());
-
-		if (indexer != null) {
-			try {
-				indexer.reindex(interview);
-			}
-			catch (SearchException se) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(se, se);
-				}
-			}
-		}
-
-		return interview;
+		return interviewPersistence.update(interview, merge);
 	}
 
 	/**
@@ -467,42 +414,6 @@ public abstract class InterviewLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the resource remote service.
-	 *
-	 * @return the resource remote service
-	 */
-	public ResourceService getResourceService() {
-		return resourceService;
-	}
-
-	/**
-	 * Sets the resource remote service.
-	 *
-	 * @param resourceService the resource remote service
-	 */
-	public void setResourceService(ResourceService resourceService) {
-		this.resourceService = resourceService;
-	}
-
-	/**
-	 * Returns the resource persistence.
-	 *
-	 * @return the resource persistence
-	 */
-	public ResourcePersistence getResourcePersistence() {
-		return resourcePersistence;
-	}
-
-	/**
-	 * Sets the resource persistence.
-	 *
-	 * @param resourcePersistence the resource persistence
-	 */
-	public void setResourcePersistence(ResourcePersistence resourcePersistence) {
-		this.resourcePersistence = resourcePersistence;
-	}
-
-	/**
 	 * Returns the user local service.
 	 *
 	 * @return the user local service
@@ -633,16 +544,11 @@ public abstract class InterviewLocalServiceBaseImpl
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)
 	protected ResourceLocalService resourceLocalService;
-	@BeanReference(type = ResourceService.class)
-	protected ResourceService resourceService;
-	@BeanReference(type = ResourcePersistence.class)
-	protected ResourcePersistence resourcePersistence;
 	@BeanReference(type = UserLocalService.class)
 	protected UserLocalService userLocalService;
 	@BeanReference(type = UserService.class)
 	protected UserService userService;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
-	private static Log _log = LogFactoryUtil.getLog(InterviewLocalServiceBaseImpl.class);
 	private String _beanIdentifier;
 }

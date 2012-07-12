@@ -5,6 +5,7 @@
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src" />
 	<classpathentry kind="src" path="/portal-6.1.10" />
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" />
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/com.liferay.ide.eclipse.server.tomcat.runtimeClasspathProvider/Liferay v6.0 CE (Tomcat 6)" />
 	<classpathentry kind="lib" path="/portal-6.1.10/lib/development/activation.jar" />
 	<classpathentry kind="lib" path="/portal-6.1.10/lib/development/annotations.jar" />
 	<classpathentry kind="lib" path="/portal-6.1.10/lib/development/jsp-api.jar" />

@@ -85,8 +85,8 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 				"setBeanIdentifier", java.lang.String.class);
 
 		_addQuestionMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addQuestion", long.class, java.lang.String.class,
-				java.lang.String.class, long.class, int.class, int.class,
+				"addQuestion", java.lang.String.class, java.lang.String.class,
+				long.class, int.class,
 				com.liferay.portal.service.ServiceContext.class);
 
 		_deleteQuestionSetQuestionsMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
@@ -99,9 +99,9 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 				"getQuestionSetQuestionsCount", long.class);
 
 		_updateQuestionMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateQuestion", long.class, long.class, long.class,
+				"updateQuestion", long.class, long.class,
 				java.lang.String.class, java.lang.String.class, int.class,
-				int.class, com.liferay.portal.service.ServiceContext.class);
+				com.liferay.portal.service.ServiceContext.class);
 	}
 
 	public com.liferay.interview.model.Question addQuestion(
@@ -154,14 +154,16 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 		return (com.liferay.interview.model.Question)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void deleteQuestion(long questionId)
+	public com.liferay.interview.model.Question deleteQuestion(long questionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		MethodHandler methodHandler = new MethodHandler(_deleteQuestionMethodKey2,
 				questionId);
 
 		try {
-			_classLoaderProxy.invoke(methodHandler);
+			returnObj = _classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
@@ -180,15 +182,20 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.interview.model.Question)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void deleteQuestion(com.liferay.interview.model.Question question)
+	public com.liferay.interview.model.Question deleteQuestion(
+		com.liferay.interview.model.Question question)
 		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		MethodHandler methodHandler = new MethodHandler(_deleteQuestionMethodKey3,
 				ClpSerializer.translateInput(question));
 
 		try {
-			_classLoaderProxy.invoke(methodHandler);
+			returnObj = _classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
@@ -203,6 +210,8 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.interview.model.Question)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -564,18 +573,18 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 		}
 	}
 
-	public com.liferay.interview.model.Question addQuestion(long userId,
+	public com.liferay.interview.model.Question addQuestion(
 		java.lang.String title, java.lang.String description,
-		long questionSetId, int type, int order,
+		long questionSetId, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addQuestionMethodKey17,
-				userId, ClpSerializer.translateInput(title),
+				ClpSerializer.translateInput(title),
 				ClpSerializer.translateInput(description), questionSetId, type,
-				order, ClpSerializer.translateInput(serviceContext));
+				ClpSerializer.translateInput(serviceContext));
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -684,18 +693,17 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
-	public com.liferay.interview.model.Question updateQuestion(long userId,
+	public com.liferay.interview.model.Question updateQuestion(
 		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type, int order,
+		java.lang.String description, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateQuestionMethodKey21,
-				userId, questionId, questionSetId,
-				ClpSerializer.translateInput(title),
-				ClpSerializer.translateInput(description), type, order,
+				questionId, questionSetId, ClpSerializer.translateInput(title),
+				ClpSerializer.translateInput(description), type,
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
