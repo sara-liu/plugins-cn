@@ -42,4 +42,17 @@ Interview interview = (Interview)row.getObject();
 	<liferay-ui:icon-delete
 		url="<%= deleteURL %>"
 	/>
+
+	<c:if test="<%= !(interview.getResponse().equals(StringPool.BLANK)) %>">
+		<portlet:renderURL var="viewResponseURL">
+			<portlet:param name="interviewId" value="<%= String.valueOf(interview.getInterviewId()) %>" />
+			<portlet:param name="mvcPath" value="/admin/view_response.jsp" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+		</portlet:renderURL>
+
+		<liferay-ui:icon
+			message="view-interview"
+			url='<%= viewResponseURL %>'
+		/>
+	</c:if>
 </liferay-ui:icon-menu>

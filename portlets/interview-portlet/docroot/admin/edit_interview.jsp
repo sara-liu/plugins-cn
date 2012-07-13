@@ -17,8 +17,14 @@
 <%@ include file="/admin/init.jsp" %>
 
 <%
+String answerURL = "http://127.0.0.1:8080/web/guest/answerPage";
+
 String backURL = ParamUtil.getString(request, "backURL");
 String redirect = ParamUtil.getString(request, "redirect");
+
+PortletPreferences preferences = renderRequest.getPreferences();
+
+preferences.setValue("displayURL", answerURL);
 
 long interviewId = ParamUtil.getLong(request, "interviewId");
 
@@ -41,7 +47,7 @@ catch (NoSuchInterviewException nsie) {
 <aui:form action="<%= updateInterviewURL %>" method="post" name="fm">
 	<aui:model-context bean="<%= interview %>" model="<%= Interview.class %>" />
 
-	<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
+	<%-- <aui:input name="backURL" type="hidden" value="<%= backURL %>" /> --%>
 	<aui:input name="currentURL" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="interviewId" type="hidden" />
@@ -51,7 +57,7 @@ catch (NoSuchInterviewException nsie) {
 
 	<c:if test="<%= interview != null %>">
 		<aui:field-wrapper label="uuid">
-			<%= interview.getUuid() %>
+			<aui:a href='<%= preferences.getValue("displayURL", null) + "?uuid=" + interview.getUuid() %>' target="_blank"><%= interview.getUuid() %></aui:a>
 		</aui:field-wrapper>
 	</c:if>
 

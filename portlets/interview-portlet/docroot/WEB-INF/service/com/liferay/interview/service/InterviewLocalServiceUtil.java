@@ -69,9 +69,11 @@ public class InterviewLocalServiceUtil {
 	* @param interviewId the primary key of the interview
 	* @throws PortalException if a interview with the primary key could not be found
 	* @throws SystemException if a system exception occurred
+	* @throws com.liferay.interview.NoSuchInterviewException
 	*/
 	public static void deleteInterview(long interviewId)
-		throws com.liferay.portal.kernel.exception.PortalException,
+		throws com.liferay.interview.NoSuchInterviewException,
+			com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteInterview(interviewId);
 	}
@@ -270,6 +272,20 @@ public class InterviewLocalServiceUtil {
 		return getService()
 				   .addInterview(name, emailAddress, questionSetId,
 			serviceContext);
+	}
+
+	public static com.liferay.interview.model.Interview addInterviewResponse(
+		long interviewId, java.util.Date startDate, java.lang.String response)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addInterviewResponse(interviewId, startDate, response);
+	}
+
+	public static com.liferay.interview.model.Interview getInterview(
+		java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getInterview(uuid);
 	}
 
 	public static com.liferay.interview.model.Interview updateInterview(

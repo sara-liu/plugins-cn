@@ -9,7 +9,7 @@ create table Interview_Interview (
 	startDate DATE null,
 	expireDate DATE null,
 	questionSetId LONG,
-	response VARCHAR(75) null
+	response VARCHAR(300) null
 );
 
 create table Interview_Question (
