@@ -31,8 +31,8 @@ import java.util.List;
 public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 
 	public Question addQuestion(
-			long userId, String title, String description, long questionSetId, int type,
-			int order, ServiceContext serviceContext)
+			long questionSetId, String title, String description, int type,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		Date now = new Date();
@@ -43,14 +43,13 @@ public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 
 		Question question = questionPersistence.create(questionId);
 
-		question.setUserId(userId);
+		question.setUserId(serviceContext.getUserId());
 		question.setCreateDate(serviceContext.getCreateDate(now));
 		question.setModifiedDate(serviceContext.getModifiedDate(now));
 		question.setQuestionSetId(questionSetId);
 		question.setTitle(title);
 		question.setDescription(description);
 		question.setType(type);
-		question.setOrder(order);
 
 		questionPersistence.update(question, false);
 
@@ -82,21 +81,20 @@ public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 	}
 
 	public Question updateQuestion(
-			long userId, long questionId, long questionSetId, String title,
-			String description, int type, int order, ServiceContext serviceContext)
+			long questionId, long questionSetId, String title,
+			String description, int type, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		validate(title);
 
 		Question question = questionPersistence.findByPrimaryKey(questionId);
 
-		question.setUserId(userId);
+		question.setUserId(serviceContext.getUserId());
 		question.setModifiedDate(serviceContext.getModifiedDate(null));
 		question.setQuestionSetId(questionSetId);
 		question.setTitle(title);
 		question.setDescription(description);
 		question.setType(type);
-		question.setOrder(order);
 
 		questionPersistence.updateImpl(question, false);
 
@@ -104,6 +102,7 @@ public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 	}
 
 	protected void validate(String title) throws PortalException {
+
 		if (Validator.isNull(title)) {
 			throw new QuestionTitleException();
 		}

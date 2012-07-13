@@ -59,24 +59,27 @@ public class QuestionLocalServiceWrapper implements QuestionLocalService,
 	* Deletes the question with the primary key from the database. Also notifies the appropriate model listeners.
 	*
 	* @param questionId the primary key of the question
+	* @return the question that was removed
 	* @throws PortalException if a question with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public void deleteQuestion(long questionId)
+	public com.liferay.interview.model.Question deleteQuestion(long questionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_questionLocalService.deleteQuestion(questionId);
+		return _questionLocalService.deleteQuestion(questionId);
 	}
 
 	/**
 	* Deletes the question from the database. Also notifies the appropriate model listeners.
 	*
 	* @param question the question
+	* @return the question that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public void deleteQuestion(com.liferay.interview.model.Question question)
+	public com.liferay.interview.model.Question deleteQuestion(
+		com.liferay.interview.model.Question question)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		_questionLocalService.deleteQuestion(question);
+		return _questionLocalService.deleteQuestion(question);
 	}
 
 	/**
@@ -250,14 +253,14 @@ public class QuestionLocalServiceWrapper implements QuestionLocalService,
 		_questionLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
-	public com.liferay.interview.model.Question addQuestion(long userId,
-		java.lang.String title, java.lang.String description,
-		long questionSetId, int type, int order,
+	public com.liferay.interview.model.Question addQuestion(
+		long questionSetId, java.lang.String title,
+		java.lang.String description, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _questionLocalService.addQuestion(userId, title, description,
-			questionSetId, type, order, serviceContext);
+		return _questionLocalService.addQuestion(questionSetId, title,
+			description, type, serviceContext);
 	}
 
 	public void deleteQuestionSetQuestions(long questionSetId)
@@ -278,14 +281,14 @@ public class QuestionLocalServiceWrapper implements QuestionLocalService,
 		return _questionLocalService.getQuestionSetQuestionsCount(questionSetId);
 	}
 
-	public com.liferay.interview.model.Question updateQuestion(long userId,
+	public com.liferay.interview.model.Question updateQuestion(
 		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type, int order,
+		java.lang.String description, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _questionLocalService.updateQuestion(userId, questionId,
-			questionSetId, title, description, type, order, serviceContext);
+		return _questionLocalService.updateQuestion(questionId, questionSetId,
+			title, description, type, serviceContext);
 	}
 
 	/**

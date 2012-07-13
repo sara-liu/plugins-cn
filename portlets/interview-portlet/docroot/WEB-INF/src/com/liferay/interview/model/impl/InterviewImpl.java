@@ -31,4 +31,5 @@ public class InterviewImpl extends InterviewBaseImpl {
 	 */
 	public InterviewImpl() {
 	}
+
 }

@@ -32,7 +32,7 @@ public class QuestionSetLocalServiceImpl
 	extends QuestionSetLocalServiceBaseImpl {
 
 	public QuestionSet addQuestionSet(
-			long userId, String title, ServiceContext serviceContext)
+			String title, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		Date now = new Date();
@@ -43,7 +43,7 @@ public class QuestionSetLocalServiceImpl
 
 		QuestionSet questionSet = questionSetPersistence.create(questionSetId);
 
-		questionSet.setUserId(userId);
+		questionSet.setUserId(serviceContext.getUserId());
 		questionSet.setCreateDate(serviceContext.getCreateDate(now));
 		questionSet.setModifiedDate(serviceContext.getModifiedDate(now));
 		questionSet.setTitle(title);
@@ -72,7 +72,7 @@ public class QuestionSetLocalServiceImpl
 	}
 
 	public QuestionSet updateQuestionSet(
-			long userId, long questionSetId, String title, ServiceContext serviceContext)
+			long questionSetId, String title, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		validate(title);
@@ -80,7 +80,7 @@ public class QuestionSetLocalServiceImpl
 		QuestionSet questionSet = questionSetPersistence.findByPrimaryKey(
 			questionSetId);
 
-		questionSet.setUserId(userId);
+		questionSet.setUserId(serviceContext.getUserId());
 		questionSet.setModifiedDate(serviceContext.getModifiedDate(null));
 		questionSet.setTitle(title);
 
@@ -90,6 +90,7 @@ public class QuestionSetLocalServiceImpl
 	}
 
 	protected void validate(String title) throws PortalException {
+
 		if (Validator.isNull(title)) {
 			throw new QuestionSetTitleException();
 		}

@@ -68,8 +68,8 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 	}
 
 	public Interview updateInterview(
-			long interviewId, String name, String emailAddress,
-			Date startDate, Date expireDate, long questionSetId, String response,
+			long interviewId, String name, String emailAddress, Date startDate,
+			Date expireDate, long questionSetId, String response,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 

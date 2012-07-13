@@ -31,19 +31,14 @@ import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistryUtil;
-import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PersistedModel;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
 import com.liferay.portal.service.ResourceLocalService;
-import com.liferay.portal.service.ResourceService;
 import com.liferay.portal.service.UserLocalService;
 import com.liferay.portal.service.UserService;
-import com.liferay.portal.service.persistence.ResourcePersistence;
 import com.liferay.portal.service.persistence.UserPersistence;
 
 import java.io.Serializable;
@@ -79,26 +74,12 @@ public abstract class QuestionSetLocalServiceBaseImpl
 	 * @return the question set that was added
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public QuestionSet addQuestionSet(QuestionSet questionSet)
 		throws SystemException {
 		questionSet.setNew(true);
 
-		questionSet = questionSetPersistence.update(questionSet, false);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());
-
-		if (indexer != null) {
-			try {
-				indexer.reindex(questionSet);
-			}
-			catch (SearchException se) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(se, se);
-				}
-			}
-		}
-
-		return questionSet;
+		return questionSetPersistence.update(questionSet, false);
 	}
 
 	/**
@@ -115,49 +96,27 @@ public abstract class QuestionSetLocalServiceBaseImpl
 	 * Deletes the question set with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param questionSetId the primary key of the question set
+	 * @return the question set that was removed
 	 * @throws PortalException if a question set with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void deleteQuestionSet(long questionSetId)
+	@Indexable(type = IndexableType.DELETE)
+	public QuestionSet deleteQuestionSet(long questionSetId)
 		throws PortalException, SystemException {
-		QuestionSet questionSet = questionSetPersistence.remove(questionSetId);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());
-
-		if (indexer != null) {
-			try {
-				indexer.delete(questionSet);
-			}
-			catch (SearchException se) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(se, se);
-				}
-			}
-		}
+		return questionSetPersistence.remove(questionSetId);
 	}
 
 	/**
 	 * Deletes the question set from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param questionSet the question set
+	 * @return the question set that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void deleteQuestionSet(QuestionSet questionSet)
+	@Indexable(type = IndexableType.DELETE)
+	public QuestionSet deleteQuestionSet(QuestionSet questionSet)
 		throws SystemException {
-		questionSetPersistence.remove(questionSet);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());
-
-		if (indexer != null) {
-			try {
-				indexer.delete(questionSet);
-			}
-			catch (SearchException se) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(se, se);
-				}
-			}
-		}
+		return questionSetPersistence.remove(questionSet);
 	}
 
 	/**
@@ -283,6 +242,7 @@ public abstract class QuestionSetLocalServiceBaseImpl
 	 * @return the question set that was updated
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public QuestionSet updateQuestionSet(QuestionSet questionSet)
 		throws SystemException {
 		return updateQuestionSet(questionSet, true);
@@ -296,26 +256,12 @@ public abstract class QuestionSetLocalServiceBaseImpl
 	 * @return the question set that was updated
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public QuestionSet updateQuestionSet(QuestionSet questionSet, boolean merge)
 		throws SystemException {
 		questionSet.setNew(false);
 
-		questionSet = questionSetPersistence.update(questionSet, merge);
-
-		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());
-
-		if (indexer != null) {
-			try {
-				indexer.reindex(questionSet);
-			}
-			catch (SearchException se) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(se, se);
-				}
-			}
-		}
-
-		return questionSet;
+		return questionSetPersistence.update(questionSet, merge);
 	}
 
 	/**
@@ -469,42 +415,6 @@ public abstract class QuestionSetLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the resource remote service.
-	 *
-	 * @return the resource remote service
-	 */
-	public ResourceService getResourceService() {
-		return resourceService;
-	}
-
-	/**
-	 * Sets the resource remote service.
-	 *
-	 * @param resourceService the resource remote service
-	 */
-	public void setResourceService(ResourceService resourceService) {
-		this.resourceService = resourceService;
-	}
-
-	/**
-	 * Returns the resource persistence.
-	 *
-	 * @return the resource persistence
-	 */
-	public ResourcePersistence getResourcePersistence() {
-		return resourcePersistence;
-	}
-
-	/**
-	 * Sets the resource persistence.
-	 *
-	 * @param resourcePersistence the resource persistence
-	 */
-	public void setResourcePersistence(ResourcePersistence resourcePersistence) {
-		this.resourcePersistence = resourcePersistence;
-	}
-
-	/**
 	 * Returns the user local service.
 	 *
 	 * @return the user local service
@@ -635,16 +545,11 @@ public abstract class QuestionSetLocalServiceBaseImpl
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)
 	protected ResourceLocalService resourceLocalService;
-	@BeanReference(type = ResourceService.class)
-	protected ResourceService resourceService;
-	@BeanReference(type = ResourcePersistence.class)
-	protected ResourcePersistence resourcePersistence;
 	@BeanReference(type = UserLocalService.class)
 	protected UserLocalService userLocalService;
 	@BeanReference(type = UserService.class)
 	protected UserService userService;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
-	private static Log _log = LogFactoryUtil.getLog(QuestionSetLocalServiceBaseImpl.class);
 	private String _beanIdentifier;
 }

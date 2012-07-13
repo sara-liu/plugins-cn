@@ -87,15 +87,14 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 				"setBeanIdentifier", java.lang.String.class);
 
 		_addQuestionSetMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addQuestionSet", long.class, java.lang.String.class,
+				"addQuestionSet", java.lang.String.class,
 				com.liferay.portal.service.ServiceContext.class);
 
 		_deleteSetMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
 				"deleteSet", long.class);
 
 		_updateQuestionSetMethodKey19 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateQuestionSet", long.class, long.class,
-				java.lang.String.class,
+				"updateQuestionSet", long.class, java.lang.String.class,
 				com.liferay.portal.service.ServiceContext.class);
 	}
 
@@ -150,14 +149,17 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 		return (com.liferay.interview.model.QuestionSet)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void deleteQuestionSet(long questionSetId)
+	public com.liferay.interview.model.QuestionSet deleteQuestionSet(
+		long questionSetId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		MethodHandler methodHandler = new MethodHandler(_deleteQuestionSetMethodKey2,
 				questionSetId);
 
 		try {
-			_classLoaderProxy.invoke(methodHandler);
+			returnObj = _classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
@@ -176,16 +178,20 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.interview.model.QuestionSet)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void deleteQuestionSet(
+	public com.liferay.interview.model.QuestionSet deleteQuestionSet(
 		com.liferay.interview.model.QuestionSet questionSet)
 		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		MethodHandler methodHandler = new MethodHandler(_deleteQuestionSetMethodKey3,
 				ClpSerializer.translateInput(questionSet));
 
 		try {
-			_classLoaderProxy.invoke(methodHandler);
+			returnObj = _classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
@@ -200,6 +206,8 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.interview.model.QuestionSet)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -563,7 +571,7 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 		}
 	}
 
-	public com.liferay.interview.model.QuestionSet addQuestionSet(long userId,
+	public com.liferay.interview.model.QuestionSet addQuestionSet(
 		java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -571,7 +579,7 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addQuestionSetMethodKey17,
-				userId, ClpSerializer.translateInput(title),
+				ClpSerializer.translateInput(title),
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
@@ -627,14 +635,14 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 	}
 
 	public com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long userId, long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateQuestionSetMethodKey19,
-				userId, questionSetId, ClpSerializer.translateInput(title),
+				questionSetId, ClpSerializer.translateInput(title),
 				ClpSerializer.translateInput(serviceContext));
 
 		try {

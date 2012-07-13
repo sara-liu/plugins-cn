@@ -151,14 +151,17 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 		return (com.liferay.interview.model.Interview)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void deleteInterview(long interviewId)
+	public com.liferay.interview.model.Interview deleteInterview(
+		long interviewId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		MethodHandler methodHandler = new MethodHandler(_deleteInterviewMethodKey2,
 				interviewId);
 
 		try {
-			_classLoaderProxy.invoke(methodHandler);
+			returnObj = _classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
@@ -177,15 +180,20 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.interview.model.Interview)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void deleteInterview(com.liferay.interview.model.Interview interview)
+	public com.liferay.interview.model.Interview deleteInterview(
+		com.liferay.interview.model.Interview interview)
 		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		MethodHandler methodHandler = new MethodHandler(_deleteInterviewMethodKey3,
 				ClpSerializer.translateInput(interview));
 
 		try {
-			_classLoaderProxy.invoke(methodHandler);
+			returnObj = _classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
@@ -200,6 +208,8 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.interview.model.Interview)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@SuppressWarnings("rawtypes")

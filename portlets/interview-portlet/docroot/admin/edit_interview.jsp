@@ -36,12 +36,11 @@ catch (NoSuchInterviewException nsie) {
 	title='<%= (interview == null) ? "new-interview" : interview.getName() %>'
 />
 
-<portlet:actionURL name="editInterview" var="editInterviewURL" />
+<portlet:actionURL name="updateInterview" var="updateInterviewURL" />
 
-<aui:form action="<%= editInterviewURL %>" method="post" name="fm">
+<aui:form action="<%= updateInterviewURL %>" method="post" name="fm">
 	<aui:model-context bean="<%= interview %>" model="<%= Interview.class %>" />
 
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (interview == null) ? Constants.ADD : Constants.EDIT %>" />
 	<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
 	<aui:input name="currentURL" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
@@ -72,7 +71,7 @@ catch (NoSuchInterviewException nsie) {
 		for (QuestionSet questionSet : questionSets) {
 		%>
 
-			<aui:option label="<%= questionSet.getTitle() %>" selected="<%= (interview == null) && (interview.getQuestionSetId() == questionSet.getQuestionSetId()) %>" value="<%= questionSet.getQuestionSetId() %>" />
+			<aui:option label="<%= questionSet.getTitle() %>" selected="<%= (interview != null) && (interview.getQuestionSetId() == questionSet.getQuestionSetId()) %>" value="<%= questionSet.getQuestionSetId() %>" />
 
 		<%
 		}
