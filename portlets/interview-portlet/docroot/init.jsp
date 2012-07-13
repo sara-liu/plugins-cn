@@ -30,10 +30,13 @@ page import="com.liferay.interview.model.QuestionSet" %><%@
 page import="com.liferay.interview.service.InterviewLocalServiceUtil" %><%@
 page import="com.liferay.interview.service.QuestionLocalServiceUtil" %><%@
 page import="com.liferay.interview.service.QuestionSetLocalServiceUtil" %><%@
-page import="com.liferay.interview.util.QuestionTypeConstants" %><%@
+page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
+page import="com.liferay.portal.kernel.dao.search.SearchContainer" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.StringPool" %><%@
 page import="com.liferay.portal.util.PortalUtil" %>
+
+<%@ page import="javax.portlet.PortletURL" %>
 
 <portlet:defineObjects />
 

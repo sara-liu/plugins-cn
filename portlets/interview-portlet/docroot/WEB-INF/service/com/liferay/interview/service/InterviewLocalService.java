@@ -69,10 +69,12 @@ public interface InterviewLocalService extends PersistedModelLocalService {
 	* @param interviewId the primary key of the interview
 	* @throws PortalException if a interview with the primary key could not be found
 	* @throws SystemException if a system exception occurred
+	* @throws com.liferay.interview.NoSuchInterviewException
 	*/
 	public void deleteInterview(long interviewId)
 		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+			com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.interview.NoSuchInterviewException;
 
 	/**
 	* Deletes the interview from the database. Also notifies the appropriate model listeners.
@@ -239,6 +241,16 @@ public interface InterviewLocalService extends PersistedModelLocalService {
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.interview.model.Interview addInterviewResponse(
+		long interviewId, java.util.Date startDate, java.lang.String response)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.interview.model.Interview getInterview(
+		java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.interview.model.Interview updateInterview(
 		long interviewId, java.lang.String name, java.lang.String emailAddress,

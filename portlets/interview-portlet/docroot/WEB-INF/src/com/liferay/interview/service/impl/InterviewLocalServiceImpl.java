@@ -57,6 +57,34 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		return interview;
 	}
 
+/* public void deleteInterview (long interviewId)
+			throws NoSuchInterviewException, SystemException{
+
+		interviewPersistence.remove(interviewId);
+	}*/
+
+	public Interview addInterviewResponse(
+			long interviewId, Date startDate, String response)
+		throws PortalException, SystemException {
+
+		Interview interview = interviewPersistence.findByPrimaryKey(
+			interviewId);
+
+		interview.setStartDate(startDate);
+		interview.setResponse(response);
+
+		interviewPersistence.update(interview, false);
+
+		return interview;
+	}
+
+	public Interview getInterview(String uuid) throws SystemException{
+
+		List<Interview> interview = interviewPersistence.findByUuid(uuid);
+
+		return interview.get(0);
+	}
+
 	public List<Interview> getInterviews(int start, int end)
 		throws SystemException {
 

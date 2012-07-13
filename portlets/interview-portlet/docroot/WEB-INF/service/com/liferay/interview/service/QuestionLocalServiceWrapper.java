@@ -267,6 +267,12 @@ public class QuestionLocalServiceWrapper implements QuestionLocalService,
 	}
 
 	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
+		long questionSetId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _questionLocalService.getQuestionSetQuestions(questionSetId);
+	}
+
+	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
 		long questionSetId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _questionLocalService.getQuestionSetQuestions(questionSetId,
@@ -279,12 +285,13 @@ public class QuestionLocalServiceWrapper implements QuestionLocalService,
 	}
 
 	public com.liferay.interview.model.Question updateQuestion(
-		long questionId, java.lang.String title, java.lang.String description,
-		int type, com.liferay.portal.service.ServiceContext serviceContext)
+		long questionId, long questionSetId, java.lang.String title,
+		java.lang.String description, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _questionLocalService.updateQuestion(questionId, title,
-			description, type, serviceContext);
+		return _questionLocalService.updateQuestion(questionId, questionSetId,
+			title, description, type, serviceContext);
 	}
 
 	/**

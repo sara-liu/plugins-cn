@@ -244,6 +244,11 @@ public interface QuestionLocalService extends PersistedModelLocalService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
+		long questionSetId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
 		long questionSetId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -252,8 +257,9 @@ public interface QuestionLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.interview.model.Question updateQuestion(
-		long questionId, java.lang.String title, java.lang.String description,
-		int type, com.liferay.portal.service.ServiceContext serviceContext)
+		long questionId, long questionSetId, java.lang.String title,
+		java.lang.String description, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 }

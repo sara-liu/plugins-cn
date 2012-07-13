@@ -90,6 +90,7 @@ public class QuestionSetLocalServiceImpl
 	}
 
 	protected void validate(String title) throws PortalException {
+
 		if (Validator.isNull(title)) {
 			throw new QuestionSetTitleException();
 		}
