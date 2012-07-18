@@ -67,28 +67,25 @@ public class InterviewLocalServiceUtil {
 	* Deletes the interview with the primary key from the database. Also notifies the appropriate model listeners.
 	*
 	* @param interviewId the primary key of the interview
-	* @return the interview that was removed
 	* @throws PortalException if a interview with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.interview.model.Interview deleteInterview(
-		long interviewId)
+	public static void deleteInterview(long interviewId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().deleteInterview(interviewId);
+		getService().deleteInterview(interviewId);
 	}
 
 	/**
 	* Deletes the interview from the database. Also notifies the appropriate model listeners.
 	*
 	* @param interview the interview
-	* @return the interview that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.interview.model.Interview deleteInterview(
+	public static void deleteInterview(
 		com.liferay.interview.model.Interview interview)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().deleteInterview(interview);
+		getService().deleteInterview(interview);
 	}
 
 	/**

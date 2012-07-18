@@ -67,28 +67,25 @@ public class QuestionLocalServiceUtil {
 	* Deletes the question with the primary key from the database. Also notifies the appropriate model listeners.
 	*
 	* @param questionId the primary key of the question
-	* @return the question that was removed
 	* @throws PortalException if a question with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.interview.model.Question deleteQuestion(
-		long questionId)
+	public static void deleteQuestion(long questionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().deleteQuestion(questionId);
+		getService().deleteQuestion(questionId);
 	}
 
 	/**
 	* Deletes the question from the database. Also notifies the appropriate model listeners.
 	*
 	* @param question the question
-	* @return the question that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.interview.model.Question deleteQuestion(
+	public static void deleteQuestion(
 		com.liferay.interview.model.Question question)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().deleteQuestion(question);
+		getService().deleteQuestion(question);
 	}
 
 	/**
@@ -293,14 +290,13 @@ public class QuestionLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.Question updateQuestion(
-		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		long questionId, java.lang.String title, java.lang.String description,
+		int type, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateQuestion(questionId, questionSetId, title,
-			description, type, serviceContext);
+				   .updateQuestion(questionId, title, description, type,
+			serviceContext);
 	}
 
 	public static void clearService() {

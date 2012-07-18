@@ -60,28 +60,25 @@ public class QuestionSetLocalServiceWrapper implements QuestionSetLocalService,
 	* Deletes the question set with the primary key from the database. Also notifies the appropriate model listeners.
 	*
 	* @param questionSetId the primary key of the question set
-	* @return the question set that was removed
 	* @throws PortalException if a question set with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.interview.model.QuestionSet deleteQuestionSet(
-		long questionSetId)
+	public void deleteQuestionSet(long questionSetId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _questionSetLocalService.deleteQuestionSet(questionSetId);
+		_questionSetLocalService.deleteQuestionSet(questionSetId);
 	}
 
 	/**
 	* Deletes the question set from the database. Also notifies the appropriate model listeners.
 	*
 	* @param questionSet the question set
-	* @return the question set that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.interview.model.QuestionSet deleteQuestionSet(
+	public void deleteQuestionSet(
 		com.liferay.interview.model.QuestionSet questionSet)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _questionSetLocalService.deleteQuestionSet(questionSet);
+		_questionSetLocalService.deleteQuestionSet(questionSet);
 	}
 
 	/**

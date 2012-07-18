@@ -12,13 +12,13 @@
  * details.
  */
 
-package com.liferay.interview.model;
+package com.liferay.interview.util;
 
-public class QuestionTypeConstants {
+public interface QuestionTypeConstants {
 
-	public static final int MULTI_LINE = 1;
+	public static final int MULTIPLE_LINES = 0;
 
-	public static final int ONE_LINE = 0;
+	public static final int ONE_LINE = 1;
 
 	public static final int RECORDED = 2;
 

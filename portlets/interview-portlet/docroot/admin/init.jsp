@@ -20,7 +20,6 @@
 page import="com.liferay.interview.InterviewNameException" %><%@
 page import="com.liferay.interview.QuestionSetTitleException" %><%@
 page import="com.liferay.interview.QuestionTitleException" %><%@
-page import="com.liferay.interview.model.QuestionTypeConstants" %><%@
 page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
 page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@

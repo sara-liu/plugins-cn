@@ -41,15 +41,14 @@ catch (NoSuchQuestionException nsqe) {
 
 <portlet:actionURL name="updateQuestion" var="updateQuestionURL" />
 
-<aui:form action="<%= updateQuestionURL %>" method="post" name="fm1">
+<aui:form action="<%= updateQuestionURL %>" method="post" name="fm">
 	<aui:model-context bean="<%= question %>" model="<%= Question.class %>" />
 
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (question == null) ? Constants.ADD : Constants.EDIT %>" />
 	<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
 	<aui:input name="currentURL" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
-	<aui:input name="questionSetId" type="hidden" value="<%= String.valueOf(questionSetId) %>" />
 	<aui:input name="questionId" type="hidden" />
+	<aui:input name="questionSetId" type="hidden" value="<%= String.valueOf(questionSetId) %>" />
 
 	<liferay-ui:error exception="<%= QuestionTitleException.class %>" message="please-enter-a-valid-title" />
 
@@ -61,7 +60,7 @@ catch (NoSuchQuestionException nsqe) {
 
 	<aui:select label="question-type" name="type">
 		<aui:option label="one-line" selected="<%= (question != null) && (question.getType() == QuestionTypeConstants.ONE_LINE) %>" value="<%= QuestionTypeConstants.ONE_LINE %>" />
-		<aui:option label="multi-line" selected="<%= (question != null) && (question.getType() == QuestionTypeConstants.MULTI_LINE) %>" value="<%= QuestionTypeConstants.MULTI_LINE %>" />
+		<aui:option label="multiple-lines" selected="<%= (question != null) && (question.getType() == QuestionTypeConstants.MULTIPLE_LINES) %>" value="<%= QuestionTypeConstants.MULTIPLE_LINES %>" />
 		<aui:option label="recorded" selected="<%= (question != null) && (question.getType() == QuestionTypeConstants.RECORDED) %>" value="<%= QuestionTypeConstants.RECORDED %>" />
 	</aui:select>
 

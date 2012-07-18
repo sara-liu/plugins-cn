@@ -14,17 +14,17 @@
  */
 --%>
 
-<portlet:renderURL var="editquestionSetURL">
+<portlet:renderURL var="editQuestionSetURL">
 	<portlet:param name="mvcPath" value="/admin/edit_question_set.jsp" />
 	<portlet:param name="redirect" value="<%= currentURL %>" />
 </portlet:renderURL>
 
 <aui:button-row>
-	<aui:button href="<%= editquestionSetURL %>" value="add-quetion-set" />
+	<aui:button href="<%= editQuestionSetURL %>" value="add-quetion-set" />
 </aui:button-row>
 
 <liferay-ui:search-container
-	emptyResultsMessage="there-are-no-titles"
+	emptyResultsMessage="there-are-no-question-sets"
 	headerNames="title"
 >
 	<liferay-ui:search-container-results
@@ -49,12 +49,6 @@
 			href="<%= rowURL %>"
 			name="title"
 			value="<%= questionSet.getTitle() %>"
-		/>
-
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="questions"
-			value="<%= String.valueOf((QuestionLocalServiceUtil.getQuestionSetQuestions(questionSet.getQuestionSetId(), searchContainer.getStart(), searchContainer.getEnd())).size()) %>"
 		/>
 
 		<liferay-ui:search-container-column-jsp

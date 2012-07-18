@@ -81,8 +81,8 @@ public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 	}
 
 	public Question updateQuestion(
-			long questionId, long questionSetId, String title,
-			String description, int type, ServiceContext serviceContext)
+			long questionId, String title, String description, int type,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		validate(title);
@@ -91,7 +91,6 @@ public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 
 		question.setUserId(serviceContext.getUserId());
 		question.setModifiedDate(serviceContext.getModifiedDate(null));
-		question.setQuestionSetId(questionSetId);
 		question.setTitle(title);
 		question.setDescription(description);
 		question.setType(type);
@@ -102,7 +101,6 @@ public class QuestionLocalServiceImpl extends QuestionLocalServiceBaseImpl {
 	}
 
 	protected void validate(String title) throws PortalException {
-
 		if (Validator.isNull(title)) {
 			throw new QuestionTitleException();
 		}

@@ -99,8 +99,8 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 				"getQuestionSetQuestionsCount", long.class);
 
 		_updateQuestionMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateQuestion", long.class, long.class,
-				java.lang.String.class, java.lang.String.class, int.class,
+				"updateQuestion", long.class, java.lang.String.class,
+				java.lang.String.class, int.class,
 				com.liferay.portal.service.ServiceContext.class);
 	}
 
@@ -154,16 +154,14 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 		return (com.liferay.interview.model.Question)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.interview.model.Question deleteQuestion(long questionId)
+	public void deleteQuestion(long questionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
 		MethodHandler methodHandler = new MethodHandler(_deleteQuestionMethodKey2,
 				questionId);
 
 		try {
-			returnObj = _classLoaderProxy.invoke(methodHandler);
+			_classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
@@ -182,20 +180,15 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 					" is not a valid exception");
 			}
 		}
-
-		return (com.liferay.interview.model.Question)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.interview.model.Question deleteQuestion(
-		com.liferay.interview.model.Question question)
+	public void deleteQuestion(com.liferay.interview.model.Question question)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
 		MethodHandler methodHandler = new MethodHandler(_deleteQuestionMethodKey3,
 				ClpSerializer.translateInput(question));
 
 		try {
-			returnObj = _classLoaderProxy.invoke(methodHandler);
+			_classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
@@ -210,8 +203,6 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 					" is not a valid exception");
 			}
 		}
-
-		return (com.liferay.interview.model.Question)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -694,15 +685,14 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 	}
 
 	public com.liferay.interview.model.Question updateQuestion(
-		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		long questionId, java.lang.String title, java.lang.String description,
+		int type, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateQuestionMethodKey21,
-				questionId, questionSetId, ClpSerializer.translateInput(title),
+				questionId, ClpSerializer.translateInput(title),
 				ClpSerializer.translateInput(description), type,
 				ClpSerializer.translateInput(serviceContext));
 

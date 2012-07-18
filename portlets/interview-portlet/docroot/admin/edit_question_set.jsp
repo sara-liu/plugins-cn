@@ -44,7 +44,7 @@ catch (NoSuchQuestionSetException nsqse) {
 	<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
 	<aui:input name="currentURL" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
-	<aui:input name="questionSetId" type="hidden" value="<%= String.valueOf(questionSetId) %>" />
+	<aui:input name="questionSetId" type="hidden" />
 
 	<liferay-ui:error exception="<%= QuestionSetTitleException.class %>" message="please-enter-a-valid-title" />
 

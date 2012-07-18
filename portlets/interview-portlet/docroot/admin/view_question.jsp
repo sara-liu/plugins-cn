@@ -18,65 +18,74 @@
 
 <%
 String backURL = ParamUtil.getString(request, "backURL");
-String redirect = ParamUtil.getString(request, "redirect");
+
 long questionSetId = ParamUtil.getLong(request, "questionSetId");
 
-QuestionSet questionSet = QuestionSetLocalServiceUtil.getQuestionSet(questionSetId);
+QuestionSet questionSet = null;
+
+try {
+	questionSet = QuestionSetLocalServiceUtil.getQuestionSet(questionSetId);
+}
+catch (NoSuchQuestionSetException nsqse) {
+}
 %>
 
-<liferay-ui:header
-	backURL="<%= backURL %>"
-	title='<%= questionSet.getTitle() %>'
-/>
+<c:choose>
+	<c:when test="<%= questionSet != null %>">
+		<liferay-ui:header
+			backURL="<%= backURL %>"
+			title='<%= questionSet.getTitle() %>'
+		/>
 
-<portlet:renderURL var="editquestionURL">
-	<portlet:param name="mvcPath" value="/admin/edit_question.jsp" />
-	<portlet:param name="questionSetId" value="<%= String.valueOf(questionSetId) %>" />
-	<portlet:param name="redirect" value="<%= currentURL %>" />
-</portlet:renderURL>
-<aui:button-row>
-	<aui:button onClick="<%= editquestionURL %>" value="add-new-question" />
-</aui:button-row>
-
-<liferay-ui:search-container
-	emptyResultsMessage="there-are-no-questions"
->
-	<liferay-ui:search-container-results
-		results ="<%= QuestionLocalServiceUtil.getQuestionSetQuestions(questionSetId, searchContainer.getStart(), searchContainer.getEnd()) %>"
-		total = "<%= QuestionLocalServiceUtil.getQuestionSetQuestionsCount(questionSetId) %>"
-	/>
-
-	<liferay-ui:search-container-row
-		className="com.liferay.interview.model.Question"
-		keyProperty="questionId"
-		modelVar="question"
-	>
-
-		<portlet:renderURL var="rowURL">
+		<portlet:renderURL var="editquestionURL">
 			<portlet:param name="mvcPath" value="/admin/edit_question.jsp" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="questionSetId" value="<%= String.valueOf(questionSetId) %>" />
-			<portlet:param name="questionId" value="<%= String.valueOf(question.getQuestionId()) %>" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
 		</portlet:renderURL>
 
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="title"
-			value="<%= question.getTitle() %>"
-		/>
+		<aui:button-row>
+			<aui:button onClick="<%= editquestionURL %>" value="add-question" />
+		</aui:button-row>
 
-		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
-			name="description"
-			value="<%= question.getDescription() %>"
-		/>
+		<liferay-ui:search-container
+			emptyResultsMessage="there-are-no-questions"
+			headerNames="title"
+		>
+			<liferay-ui:search-container-results
+				results="<%= QuestionLocalServiceUtil.getQuestionSetQuestions(questionSetId, searchContainer.getStart(), searchContainer.getEnd()) %>"
+				total="<%= QuestionLocalServiceUtil.getQuestionSetQuestionsCount(questionSetId) %>"
+			/>
 
-		<liferay-ui:search-container-column-jsp
-			align="right"
-			path="/admin/question_action.jsp"
-		/>
+			<liferay-ui:search-container-row
+				className="com.liferay.interview.model.Question"
+				escapedModel="<%= true %>"
+				keyProperty="questionId"
+				modelVar="question"
+			>
 
-	</liferay-ui:search-container-row>
+				<portlet:renderURL var="rowURL">
+					<portlet:param name="mvcPath" value="/admin/edit_question.jsp" />
+					<portlet:param name="questionId" value="<%= String.valueOf(question.getQuestionId()) %>" />
+					<portlet:param name="redirect" value="<%= currentURL %>" />
+				</portlet:renderURL>
 
-	<liferay-ui:search-iterator />
-</liferay-ui:search-container>
+				<liferay-ui:search-container-column-text
+					href="<%= rowURL %>"
+					name="title"
+					value="<%= question.getTitle() %>"
+				/>
+
+				<liferay-ui:search-container-column-jsp
+					align="right"
+					path="/admin/question_action.jsp"
+				/>
+
+			</liferay-ui:search-container-row>
+
+			<liferay-ui:search-iterator />
+		</liferay-ui:search-container>
+	</c:when>
+	<c:otherwise>
+		<liferay-ui:error message="invalid-question-set-id">
+	</c:otherwise>
+</c:choose>

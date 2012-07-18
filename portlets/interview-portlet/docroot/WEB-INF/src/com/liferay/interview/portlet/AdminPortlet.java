@@ -36,7 +36,6 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
 /**
- * @author Samuel Kong
  * @author Sara Liu
  * @author Andy Yang
  */
@@ -139,7 +138,7 @@ public class AdminPortlet extends MVCPortlet {
 		long questionSetId = ParamUtil.getLong(actionRequest, "questionSetId");
 		String title = actionRequest.getParameter("title");
 		String description = actionRequest.getParameter("description");
-		int type = Integer.parseInt(actionRequest.getParameter("type"));
+		int type = ParamUtil.getInteger(actionRequest, "type");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			actionRequest);
@@ -153,8 +152,7 @@ public class AdminPortlet extends MVCPortlet {
 			}
 			else {
 				question = QuestionLocalServiceUtil.updateQuestion(
-					questionId, questionSetId, title, description, type,
-					serviceContext);
+					questionId, title, description, type, serviceContext);
 			}
 
 			currentURL = HttpUtil.setParameter(

@@ -149,17 +149,14 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 		return (com.liferay.interview.model.QuestionSet)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.interview.model.QuestionSet deleteQuestionSet(
-		long questionSetId)
+	public void deleteQuestionSet(long questionSetId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
 		MethodHandler methodHandler = new MethodHandler(_deleteQuestionSetMethodKey2,
 				questionSetId);
 
 		try {
-			returnObj = _classLoaderProxy.invoke(methodHandler);
+			_classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
@@ -178,20 +175,16 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 					" is not a valid exception");
 			}
 		}
-
-		return (com.liferay.interview.model.QuestionSet)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.interview.model.QuestionSet deleteQuestionSet(
+	public void deleteQuestionSet(
 		com.liferay.interview.model.QuestionSet questionSet)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
 		MethodHandler methodHandler = new MethodHandler(_deleteQuestionSetMethodKey3,
 				ClpSerializer.translateInput(questionSet));
 
 		try {
-			returnObj = _classLoaderProxy.invoke(methodHandler);
+			_classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
@@ -206,8 +199,6 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 					" is not a valid exception");
 			}
 		}
-
-		return (com.liferay.interview.model.QuestionSet)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@SuppressWarnings("rawtypes")
