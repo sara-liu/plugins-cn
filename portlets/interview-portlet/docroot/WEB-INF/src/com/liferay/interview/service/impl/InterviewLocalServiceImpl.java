@@ -57,27 +57,6 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		return interview;
 	}
 
-/* public void deleteInterview (long interviewId)
-			throws NoSuchInterviewException, SystemException{
-
-		interviewPersistence.remove(interviewId);
-	}*/
-
-	public Interview addInterviewResponse(
-			long interviewId, Date startDate, String response)
-		throws PortalException, SystemException {
-
-		Interview interview = interviewPersistence.findByPrimaryKey(
-			interviewId);
-
-		interview.setStartDate(startDate);
-		interview.setResponse(response);
-
-		interviewPersistence.update(interview, false);
-
-		return interview;
-	}
-
 	public Interview getInterview(String uuid) throws SystemException{
 
 		List<Interview> interview = interviewPersistence.findByUuid(uuid);
@@ -137,6 +116,39 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		interview.setQuestionSetId(questionSetId);
 
 		interviewPersistence.updateImpl(interview, false);
+
+		return interview;
+	}
+
+	public Interview updateResponse(
+			long interviewId, String response, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		Interview interview = interviewPersistence.findByPrimaryKey(
+			interviewId);
+
+		// if ((currentDate > expireDate) ||
+		//     (currentDate > startDate + timeLimit) {
+		//    throw TimeLimitExpired
+		// }
+
+		interview.setResponse(response);
+
+		interviewPersistence.update(interview, false);
+
+		return interview;
+	}
+
+	public Interview updateStartDate(
+			long interviewId, Date startDate, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		Interview interview = interviewPersistence.findByPrimaryKey(
+			interviewId);
+
+		interview.setStartDate(startDate);
+
+		interviewPersistence.update(interview, false);
 
 		return interview;
 	}

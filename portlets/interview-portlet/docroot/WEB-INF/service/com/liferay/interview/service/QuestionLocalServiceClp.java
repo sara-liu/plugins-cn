@@ -102,8 +102,8 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 				"getQuestionSetQuestionsCount", long.class);
 
 		_updateQuestionMethodKey22 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateQuestion", long.class, long.class,
-				java.lang.String.class, java.lang.String.class, int.class,
+				"updateQuestion", long.class, java.lang.String.class,
+				java.lang.String.class, int.class,
 				com.liferay.portal.service.ServiceContext.class);
 	}
 
@@ -716,15 +716,14 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 	}
 
 	public com.liferay.interview.model.Question updateQuestion(
-		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		long questionId, java.lang.String title, java.lang.String description,
+		int type, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateQuestionMethodKey22,
-				questionId, questionSetId, ClpSerializer.translateInput(title),
+				questionId, ClpSerializer.translateInput(title),
 				ClpSerializer.translateInput(description), type,
 				ClpSerializer.translateInput(serviceContext));
 

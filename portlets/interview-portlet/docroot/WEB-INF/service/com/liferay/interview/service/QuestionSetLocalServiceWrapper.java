@@ -262,12 +262,6 @@ public class QuestionSetLocalServiceWrapper implements QuestionSetLocalService,
 		return _questionSetLocalService.addQuestionSet(title, serviceContext);
 	}
 
-	public void deleteSet(long questionSetId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		_questionSetLocalService.deleteSet(questionSetId);
-	}
-
 	public com.liferay.interview.model.QuestionSet updateQuestionSet(
 		long questionSetId, java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)

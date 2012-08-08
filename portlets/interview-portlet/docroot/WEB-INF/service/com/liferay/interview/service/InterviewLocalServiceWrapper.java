@@ -62,11 +62,9 @@ public class InterviewLocalServiceWrapper implements InterviewLocalService,
 	* @param interviewId the primary key of the interview
 	* @throws PortalException if a interview with the primary key could not be found
 	* @throws SystemException if a system exception occurred
-	* @throws com.liferay.interview.NoSuchInterviewException
 	*/
 	public void deleteInterview(long interviewId)
-		throws com.liferay.interview.NoSuchInterviewException,
-			com.liferay.portal.kernel.exception.PortalException,
+		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_interviewLocalService.deleteInterview(interviewId);
 	}

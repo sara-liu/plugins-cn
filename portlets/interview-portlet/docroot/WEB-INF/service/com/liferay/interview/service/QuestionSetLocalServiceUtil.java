@@ -269,12 +269,6 @@ public class QuestionSetLocalServiceUtil {
 		return getService().addQuestionSet(title, serviceContext);
 	}
 
-	public static void deleteSet(long questionSetId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		getService().deleteSet(questionSetId);
-	}
-
 	public static com.liferay.interview.model.QuestionSet updateQuestionSet(
 		long questionSetId, java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)

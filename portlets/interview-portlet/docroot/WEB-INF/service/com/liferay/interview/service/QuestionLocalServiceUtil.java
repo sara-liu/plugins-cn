@@ -296,14 +296,13 @@ public class QuestionLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.Question updateQuestion(
-		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		long questionId, java.lang.String title, java.lang.String description,
+		int type, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateQuestion(questionId, questionSetId, title,
-			description, type, serviceContext);
+				   .updateQuestion(questionId, title, description, type,
+			serviceContext);
 	}
 
 	public static void clearService() {
