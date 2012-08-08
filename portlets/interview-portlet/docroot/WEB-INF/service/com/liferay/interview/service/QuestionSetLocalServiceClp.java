@@ -87,15 +87,11 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 				"setBeanIdentifier", java.lang.String.class);
 
 		_addQuestionSetMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addQuestionSet", long.class, java.lang.String.class,
+				"addQuestionSet", java.lang.String.class,
 				com.liferay.portal.service.ServiceContext.class);
 
-		_deleteSetMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
-				"deleteSet", long.class);
-
-		_updateQuestionSetMethodKey19 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateQuestionSet", long.class, long.class,
-				java.lang.String.class,
+		_updateQuestionSetMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
+				"updateQuestionSet", long.class, java.lang.String.class,
 				com.liferay.portal.service.ServiceContext.class);
 	}
 
@@ -563,7 +559,7 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 		}
 	}
 
-	public com.liferay.interview.model.QuestionSet addQuestionSet(long userId,
+	public com.liferay.interview.model.QuestionSet addQuestionSet(
 		java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -571,7 +567,7 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addQuestionSetMethodKey17,
-				userId, ClpSerializer.translateInput(title),
+				ClpSerializer.translateInput(title),
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
@@ -598,43 +594,15 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 		return (com.liferay.interview.model.QuestionSet)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public void deleteSet(long questionSetId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		MethodHandler methodHandler = new MethodHandler(_deleteSetMethodKey18,
-				questionSetId);
-
-		try {
-			_classLoaderProxy.invoke(methodHandler);
-		}
-		catch (Throwable t) {
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-	}
-
 	public com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long userId, long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_updateQuestionSetMethodKey19,
-				userId, questionSetId, ClpSerializer.translateInput(title),
+		MethodHandler methodHandler = new MethodHandler(_updateQuestionSetMethodKey18,
+				questionSetId, ClpSerializer.translateInput(title),
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
@@ -684,6 +652,5 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 	private MethodKey _getBeanIdentifierMethodKey15;
 	private MethodKey _setBeanIdentifierMethodKey16;
 	private MethodKey _addQuestionSetMethodKey17;
-	private MethodKey _deleteSetMethodKey18;
-	private MethodKey _updateQuestionSetMethodKey19;
+	private MethodKey _updateQuestionSetMethodKey18;
 }

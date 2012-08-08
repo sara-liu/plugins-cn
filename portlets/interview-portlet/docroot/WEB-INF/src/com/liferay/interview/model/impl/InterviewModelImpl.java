@@ -71,7 +71,7 @@ public class InterviewModelImpl extends BaseModelImpl<Interview>
 			{ "questionSetId", Types.BIGINT },
 			{ "response", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table Interview_Interview (uuid_ VARCHAR(75) null,interviewId LONG not null primary key,userId LONG,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,emailAddress VARCHAR(75) null,startDate DATE null,expireDate DATE null,questionSetId LONG,response VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table Interview_Interview (uuid_ VARCHAR(75) null,interviewId LONG not null primary key,userId LONG,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,emailAddress VARCHAR(75) null,startDate DATE null,expireDate DATE null,questionSetId LONG,response VARCHAR(300) null)";
 	public static final String TABLE_SQL_DROP = "drop table Interview_Interview";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";

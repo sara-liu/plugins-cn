@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
  *
@@ -12,16 +11,15 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/init.jsp" %>
+package com.liferay.interview.util;
 
-<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
+public interface QuestionTypeConstants {
 
-<%@ page import="java.lang.IndexOutOfBoundsException" %><%@
-page import="java.lang.NullPointerException" %>
+	public static final int MULTIPLE_LINES = 0;
 
-<%@ page import="java.text.SimpleDateFormat" %>
+	public static final int ONE_LINE = 1;
 
-<%@ page import="java.util.Date" %><%@
-page import="java.util.List" %>
+	public static final int RECORDED = 2;
+
+}

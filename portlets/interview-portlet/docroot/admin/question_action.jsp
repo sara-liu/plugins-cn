@@ -19,13 +19,16 @@
 <%
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
-Interview interview = (Interview)row.getObject();
+Question question = (Question)row.getObject();
+
+String redirect = ParamUtil.getString(request, "redirect");
 %>
 
 <liferay-ui:icon-menu>
 	<portlet:renderURL var="editURL">
-		<portlet:param name="interviewId" value="<%= String.valueOf(interview.getInterviewId()) %>" />
-		<portlet:param name="mvcPath" value="/admin/edit_interview.jsp" />
+		<portlet:param name="mvcPath" value="/admin/edit_question.jsp" />
+		<portlet:param name="questionId" value="<%= String.valueOf(question.getQuestionId()) %>" />
+		<portlet:param name="questionSetId" value="<%= String.valueOf(question.getQuestionSetId()) %>" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 	</portlet:renderURL>
 
@@ -34,25 +37,12 @@ Interview interview = (Interview)row.getObject();
 		url="<%= editURL %>"
 	/>
 
-	<portlet:actionURL name="deleteInterview" var="deleteURL">
-		<portlet:param name="interviewId" value="<%= String.valueOf(interview.getInterviewId()) %>" />
+	<portlet:actionURL name="deleteQuestion" var="deleteURL">
+		<portlet:param name="questionId" value="<%= String.valueOf(question.getQuestionId()) %>" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete
 		url="<%= deleteURL %>"
 	/>
-
-	<c:if test="<%= Validator.isNotNull(interview.getResponse()) %>">
-		<portlet:renderURL var="viewResponseURL">
-			<portlet:param name="interviewId" value="<%= String.valueOf(interview.getInterviewId()) %>" />
-			<portlet:param name="mvcPath" value="/admin/view_response.jsp" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-		</portlet:renderURL>
-
-		<liferay-ui:icon
-			message="view-response"
-			url='<%= viewResponseURL %>'
-		/>
-	</c:if>
 </liferay-ui:icon-menu>

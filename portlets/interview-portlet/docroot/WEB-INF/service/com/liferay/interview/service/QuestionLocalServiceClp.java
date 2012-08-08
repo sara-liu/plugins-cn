@@ -86,22 +86,25 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 
 		_addQuestionMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
 				"addQuestion", long.class, java.lang.String.class,
-				java.lang.String.class, long.class, int.class, int.class,
+				java.lang.String.class, int.class,
 				com.liferay.portal.service.ServiceContext.class);
 
 		_deleteQuestionSetQuestionsMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
 				"deleteQuestionSetQuestions", long.class);
 
 		_getQuestionSetQuestionsMethodKey19 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getQuestionSetQuestions", long.class);
+
+		_getQuestionSetQuestionsMethodKey20 = new MethodKey(_classLoaderProxy.getClassName(),
 				"getQuestionSetQuestions", long.class, int.class, int.class);
 
-		_getQuestionSetQuestionsCountMethodKey20 = new MethodKey(_classLoaderProxy.getClassName(),
+		_getQuestionSetQuestionsCountMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
 				"getQuestionSetQuestionsCount", long.class);
 
-		_updateQuestionMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateQuestion", long.class, long.class, long.class,
-				java.lang.String.class, java.lang.String.class, int.class,
-				int.class, com.liferay.portal.service.ServiceContext.class);
+		_updateQuestionMethodKey22 = new MethodKey(_classLoaderProxy.getClassName(),
+				"updateQuestion", long.class, java.lang.String.class,
+				java.lang.String.class, int.class,
+				com.liferay.portal.service.ServiceContext.class);
 	}
 
 	public com.liferay.interview.model.Question addQuestion(
@@ -564,18 +567,18 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 		}
 	}
 
-	public com.liferay.interview.model.Question addQuestion(long userId,
-		java.lang.String title, java.lang.String description,
-		long questionSetId, int type, int order,
+	public com.liferay.interview.model.Question addQuestion(
+		long questionSetId, java.lang.String title,
+		java.lang.String description, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addQuestionMethodKey17,
-				userId, ClpSerializer.translateInput(title),
-				ClpSerializer.translateInput(description), questionSetId, type,
-				order, ClpSerializer.translateInput(serviceContext));
+				questionSetId, ClpSerializer.translateInput(title),
+				ClpSerializer.translateInput(description), type,
+				ClpSerializer.translateInput(serviceContext));
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);
@@ -630,11 +633,39 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 	}
 
 	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
-		long questionSetId, int start, int end)
+		long questionSetId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_getQuestionSetQuestionsMethodKey19,
+				questionSetId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.interview.model.Question>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
+		long questionSetId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getQuestionSetQuestionsMethodKey20,
 				questionSetId, start, end);
 
 		try {
@@ -661,7 +692,7 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_getQuestionSetQuestionsCountMethodKey20,
+		MethodHandler methodHandler = new MethodHandler(_getQuestionSetQuestionsCountMethodKey21,
 				questionSetId);
 
 		try {
@@ -684,18 +715,16 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
-	public com.liferay.interview.model.Question updateQuestion(long userId,
-		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type, int order,
-		com.liferay.portal.service.ServiceContext serviceContext)
+	public com.liferay.interview.model.Question updateQuestion(
+		long questionId, java.lang.String title, java.lang.String description,
+		int type, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
-		MethodHandler methodHandler = new MethodHandler(_updateQuestionMethodKey21,
-				userId, questionId, questionSetId,
-				ClpSerializer.translateInput(title),
-				ClpSerializer.translateInput(description), type, order,
+		MethodHandler methodHandler = new MethodHandler(_updateQuestionMethodKey22,
+				questionId, ClpSerializer.translateInput(title),
+				ClpSerializer.translateInput(description), type,
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
@@ -747,6 +776,7 @@ public class QuestionLocalServiceClp implements QuestionLocalService {
 	private MethodKey _addQuestionMethodKey17;
 	private MethodKey _deleteQuestionSetQuestionsMethodKey18;
 	private MethodKey _getQuestionSetQuestionsMethodKey19;
-	private MethodKey _getQuestionSetQuestionsCountMethodKey20;
-	private MethodKey _updateQuestionMethodKey21;
+	private MethodKey _getQuestionSetQuestionsMethodKey20;
+	private MethodKey _getQuestionSetQuestionsCountMethodKey21;
+	private MethodKey _updateQuestionMethodKey22;
 }

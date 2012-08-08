@@ -262,27 +262,20 @@ public class QuestionSetLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.QuestionSet addQuestionSet(
-		long userId, java.lang.String title,
+		java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addQuestionSet(userId, title, serviceContext);
-	}
-
-	public static void deleteSet(long questionSetId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		getService().deleteSet(questionSetId);
+		return getService().addQuestionSet(title, serviceContext);
 	}
 
 	public static com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long userId, long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateQuestionSet(userId, questionSetId, title,
-			serviceContext);
+				   .updateQuestionSet(questionSetId, title, serviceContext);
 	}
 
 	public static void clearService() {
