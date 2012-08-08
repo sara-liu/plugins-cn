@@ -231,9 +231,9 @@ public interface QuestionLocalService extends PersistedModelLocalService {
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
 
-	public com.liferay.interview.model.Question addQuestion(long userId,
-		java.lang.String title, java.lang.String description,
-		long questionSetId, int type, int order,
+	public com.liferay.interview.model.Question addQuestion(
+		long questionSetId, java.lang.String title,
+		java.lang.String description, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -244,6 +244,11 @@ public interface QuestionLocalService extends PersistedModelLocalService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
+		long questionSetId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
 		long questionSetId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -251,10 +256,9 @@ public interface QuestionLocalService extends PersistedModelLocalService {
 	public int getQuestionSetQuestionsCount(long questionSetId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
-	public com.liferay.interview.model.Question updateQuestion(long userId,
-		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type, int order,
-		com.liferay.portal.service.ServiceContext serviceContext)
+	public com.liferay.interview.model.Question updateQuestion(
+		long questionId, java.lang.String title, java.lang.String description,
+		int type, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 }

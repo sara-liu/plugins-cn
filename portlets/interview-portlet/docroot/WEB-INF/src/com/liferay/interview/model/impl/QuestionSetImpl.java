@@ -31,4 +31,5 @@ public class QuestionSetImpl extends QuestionSetBaseImpl {
 	 */
 	public QuestionSetImpl() {
 	}
+
 }

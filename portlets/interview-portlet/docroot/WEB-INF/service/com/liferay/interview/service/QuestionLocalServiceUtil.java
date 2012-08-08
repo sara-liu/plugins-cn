@@ -262,20 +262,26 @@ public class QuestionLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.Question addQuestion(
-		long userId, java.lang.String title, java.lang.String description,
-		long questionSetId, int type, int order,
+		long questionSetId, java.lang.String title,
+		java.lang.String description, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addQuestion(userId, title, description, questionSetId,
-			type, order, serviceContext);
+				   .addQuestion(questionSetId, title, description, type,
+			serviceContext);
 	}
 
 	public static void deleteQuestionSetQuestions(long questionSetId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteQuestionSetQuestions(questionSetId);
+	}
+
+	public static java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
+		long questionSetId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getQuestionSetQuestions(questionSetId);
 	}
 
 	public static java.util.List<com.liferay.interview.model.Question> getQuestionSetQuestions(
@@ -290,14 +296,13 @@ public class QuestionLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.Question updateQuestion(
-		long userId, long questionId, long questionSetId,
-		java.lang.String title, java.lang.String description, int type,
-		int order, com.liferay.portal.service.ServiceContext serviceContext)
+		long questionId, java.lang.String title, java.lang.String description,
+		int type, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateQuestion(userId, questionId, questionSetId, title,
-			description, type, order, serviceContext);
+				   .updateQuestion(questionId, title, description, type,
+			serviceContext);
 	}
 
 	public static void clearService() {

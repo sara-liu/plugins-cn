@@ -16,4 +16,44 @@
 
 <%@ include file="/display/init.jsp" %>
 
-This is the <b>Interview (Display)</b> portlet.
+<%
+SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+String uuid = PortalUtil.getOriginalServletRequest(request).getParameter("uuid");
+
+long interviewId = 0;
+
+try{
+	interviewId = ParamUtil.getLong(request, "interviewId");
+%>
+
+	Tips:Once you start,you must finish in 2 hours...
+
+	<portlet:renderURL var="updateInterviewURL">
+		<portlet:param name="startDate" value="<%= format.format(new Date()) %>" />
+		<portlet:param name="uuid" value="<%= uuid %>" />
+		<portlet:param name="mvcPath" value="/display/view_questions.jsp" />
+	</portlet:renderURL>
+
+	<c:choose>
+		<c:when test='<%= interviewId == 0 %>'>
+			<aui:button-row>
+				<aui:button onClick="<%= updateInterviewURL %>" value="start" />
+			</aui:button-row>
+		</c:when>
+		<c:otherwise>
+			<aui:button-row>
+				<aui:button value="start" disabled = "true" />
+			</aui:button-row>
+		</c:otherwise>
+	</c:choose>
+
+<%
+}
+catch (NullPointerException npe) {
+}
+%>
+
+<aui:script>
+	window.history.forward();
+</aui:script>
