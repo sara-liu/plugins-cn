@@ -53,7 +53,7 @@ public class QuestionSetLocalServiceImpl
 		return questionSet;
 	}
 
-	public void deleteSet(long questionSetId)
+	public void deleteQuestionSet(long questionSetId)
 		throws PortalException, SystemException {
 
 		questionLocalService.deleteQuestionSetQuestions(questionSetId);
@@ -90,7 +90,6 @@ public class QuestionSetLocalServiceImpl
 	}
 
 	protected void validate(String title) throws PortalException {
-
 		if (Validator.isNull(title)) {
 			throw new QuestionSetTitleException();
 		}

@@ -241,10 +241,6 @@ public interface QuestionSetLocalService extends PersistedModelLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	public void deleteSet(long questionSetId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
-
 	public com.liferay.interview.model.QuestionSet updateQuestionSet(
 		long questionSetId, java.lang.String title,
 		com.liferay.portal.service.ServiceContext serviceContext)

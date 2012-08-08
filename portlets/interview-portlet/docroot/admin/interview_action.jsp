@@ -43,7 +43,7 @@ Interview interview = (Interview)row.getObject();
 		url="<%= deleteURL %>"
 	/>
 
-	<c:if test="<%= !(interview.getResponse().equals(StringPool.BLANK)) %>">
+	<c:if test="<%= Validator.isNotNull(interview.getResponse()) %>">
 		<portlet:renderURL var="viewResponseURL">
 			<portlet:param name="interviewId" value="<%= String.valueOf(interview.getInterviewId()) %>" />
 			<portlet:param name="mvcPath" value="/admin/view_response.jsp" />
@@ -51,7 +51,7 @@ Interview interview = (Interview)row.getObject();
 		</portlet:renderURL>
 
 		<liferay-ui:icon
-			message="view-interview"
+			message="view-response"
 			url='<%= viewResponseURL %>'
 		/>
 	</c:if>

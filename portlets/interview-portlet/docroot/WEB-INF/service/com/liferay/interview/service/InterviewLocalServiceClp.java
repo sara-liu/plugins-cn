@@ -159,8 +159,7 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 	}
 
 	public void deleteInterview(long interviewId)
-		throws com.liferay.interview.NoSuchInterviewException,
-			com.liferay.portal.kernel.exception.PortalException,
+		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		MethodHandler methodHandler = new MethodHandler(_deleteInterviewMethodKey2,
 				interviewId);
@@ -169,10 +168,6 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 			_classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
-			if (t instanceof com.liferay.interview.NoSuchInterviewException) {
-				throw (com.liferay.interview.NoSuchInterviewException)t;
-			}
-
 			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
 				throw (com.liferay.portal.kernel.exception.PortalException)t;
 			}

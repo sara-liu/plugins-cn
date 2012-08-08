@@ -285,13 +285,12 @@ public class QuestionLocalServiceWrapper implements QuestionLocalService,
 	}
 
 	public com.liferay.interview.model.Question updateQuestion(
-		long questionId, long questionSetId, java.lang.String title,
-		java.lang.String description, int type,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		long questionId, java.lang.String title, java.lang.String description,
+		int type, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _questionLocalService.updateQuestion(questionId, questionSetId,
-			title, description, type, serviceContext);
+		return _questionLocalService.updateQuestion(questionId, title,
+			description, type, serviceContext);
 	}
 
 	/**

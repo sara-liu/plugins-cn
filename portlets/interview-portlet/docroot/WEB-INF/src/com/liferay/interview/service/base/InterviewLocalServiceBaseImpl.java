@@ -117,11 +117,9 @@ public abstract class InterviewLocalServiceBaseImpl
 	 * @param interviewId the primary key of the interview
 	 * @throws PortalException if a interview with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
-	 * @throws com.liferay.interview.NoSuchInterviewException
 	 */
 	public void deleteInterview(long interviewId)
-		throws PortalException, SystemException,
-			com.liferay.interview.NoSuchInterviewException {
+		throws PortalException, SystemException {
 		Interview interview = interviewPersistence.remove(interviewId);
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());

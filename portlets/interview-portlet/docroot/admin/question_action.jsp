@@ -27,9 +27,9 @@ String redirect = ParamUtil.getString(request, "redirect");
 <liferay-ui:icon-menu>
 	<portlet:renderURL var="editURL">
 		<portlet:param name="mvcPath" value="/admin/edit_question.jsp" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="questionId" value="<%= String.valueOf(question.getQuestionId()) %>" />
 		<portlet:param name="questionSetId" value="<%= String.valueOf(question.getQuestionSetId()) %>" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon

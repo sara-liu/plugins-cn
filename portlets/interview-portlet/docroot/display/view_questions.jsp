@@ -27,13 +27,7 @@ try {
 
 	long questionSetId = interview.getQuestionSetId();
 
-	PortletURL portletURL = renderResponse.createRenderURL();
-
-	SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, 0, portletURL, null, null);
-
-	List results = QuestionLocalServiceUtil.getQuestionSetQuestions(questionSetId, searchContainer.getStart(), searchContainer.getEnd());
-
-	searchContainer.setResults(results);
+	List results = QuestionLocalServiceUtil.getQuestionSetQuestions(questionSetId);
 %>
 
 <portlet:actionURL name="updateInterview" var="updateInterviewURL" />

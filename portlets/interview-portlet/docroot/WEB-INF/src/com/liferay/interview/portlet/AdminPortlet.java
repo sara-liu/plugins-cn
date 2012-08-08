@@ -70,7 +70,7 @@ public class AdminPortlet extends MVCPortlet {
 
 		long questionSetId = ParamUtil.getLong(actionRequest, "questionSetId");
 
-		QuestionSetLocalServiceUtil.deleteSet(questionSetId);
+		QuestionSetLocalServiceUtil.deleteQuestionSet(questionSetId);
 
 		sendRedirect(actionRequest, actionResponse);
 	}
@@ -137,9 +137,9 @@ public class AdminPortlet extends MVCPortlet {
 
 		long questionId = ParamUtil.getLong(actionRequest, "questionId");
 		long questionSetId = ParamUtil.getLong(actionRequest, "questionSetId");
-		String title = actionRequest.getParameter("title");
-		String description = actionRequest.getParameter("description");
-		int type = Integer.parseInt(actionRequest.getParameter("type"));
+		String title = ParamUtil.getString(actionRequest, "title");
+		String description = ParamUtil.getString(actionRequest, "description");
+		int type = ParamUtil.getInteger(actionRequest, "type");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			actionRequest);
@@ -153,8 +153,7 @@ public class AdminPortlet extends MVCPortlet {
 			}
 			else {
 				question = QuestionLocalServiceUtil.updateQuestion(
-					questionId, questionSetId, title, description, type,
-					serviceContext);
+					questionId, title, description, type, serviceContext);
 			}
 
 			currentURL = HttpUtil.setParameter(
