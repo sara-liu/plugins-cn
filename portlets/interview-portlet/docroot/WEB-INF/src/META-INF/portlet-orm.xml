@@ -69,6 +69,7 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="timeLimit" />
 			<basic name="title" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />

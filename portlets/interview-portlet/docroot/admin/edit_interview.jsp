@@ -43,7 +43,7 @@ catch (NoSuchInterviewException nsie) {
 
 	<aui:input name="currentURL" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
-	<aui:input name="interviewId" type="hidden" />
+	<aui:input name="interviewId" type="hidden" value="<%= String.valueOf(interviewId) %>" />
 
 	<liferay-ui:error exception="<%= InterviewEmailAddressException.class %>" message="please-enter-a-valid-email-address" />
 	<liferay-ui:error exception="<%= InterviewNameException.class %>" message="please-enter-a-valid-name" />
@@ -68,6 +68,8 @@ catch (NoSuchInterviewException nsie) {
 	<aui:input name="emailAddress">
 		<aui:validator name="required" />
 	</aui:input>
+
+	<aui:input name="expireDate" />
 
 	<aui:select label="question-set" name="questionSetId">
 

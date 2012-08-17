@@ -262,20 +262,21 @@ public class QuestionSetLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.QuestionSet addQuestionSet(
-		java.lang.String title,
+		java.lang.String title, int timeLimit,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addQuestionSet(title, serviceContext);
+		return getService().addQuestionSet(title, timeLimit, serviceContext);
 	}
 
 	public static com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title, int timeLimit,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateQuestionSet(questionSetId, title, serviceContext);
+				   .updateQuestionSet(questionSetId, title, timeLimit,
+			serviceContext);
 	}
 
 	public static void clearService() {

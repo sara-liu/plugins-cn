@@ -86,6 +86,6 @@ catch (NoSuchQuestionSetException nsqse) {
 		</liferay-ui:search-container>
 	</c:when>
 	<c:otherwise>
-		<liferay-ui:error message="invalid-question-set-id">
+		<liferay-ui:error message="invalid-question-set-id" />
 	</c:otherwise>
 </c:choose>

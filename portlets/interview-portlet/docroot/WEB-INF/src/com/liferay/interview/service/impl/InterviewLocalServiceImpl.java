@@ -16,13 +16,17 @@ package com.liferay.interview.service.impl;
 
 import com.liferay.interview.InterviewEmailAddressException;
 import com.liferay.interview.InterviewNameException;
+import com.liferay.interview.TimeLimitExpiredException;
 import com.liferay.interview.model.Interview;
+import com.liferay.interview.model.QuestionSet;
 import com.liferay.interview.service.base.InterviewLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.util.PortalUtil;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,12 +37,18 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 
 	public Interview addInterview(
 			String name, String emailAddress, long questionSetId,
+			int expireDateMonth, int expireDateDay, int expireDateYear,
+			int expireDateHour, int expireDateMinute,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		Date now = new Date();
 
 		validate(name, emailAddress);
+
+		Date expireDate = PortalUtil.getDate(
+			expireDateMonth, expireDateDay, expireDateYear, expireDateHour,
+			expireDateMinute, new PortalException());
 
 		long interviewId = counterLocalService.increment();
 
@@ -51,6 +61,7 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		interview.setName(name);
 		interview.setEmailAddress(emailAddress);
 		interview.setQuestionSetId(questionSetId);
+		interview.setExpireDate(expireDate);
 
 		interviewPersistence.update(interview, false);
 
@@ -101,10 +112,16 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 
 	public Interview updateInterview(
 			long interviewId, String name, String emailAddress,
-			long questionSetId, ServiceContext serviceContext)
+			long questionSetId, int expireDateMonth, int expireDateDay,
+			int expireDateYear, int expireDateHour, int expireDateMinute,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		validate(name, emailAddress);
+
+		Date expireDate = PortalUtil.getDate(
+			expireDateMonth, expireDateDay, expireDateYear, expireDateHour,
+			expireDateMinute, new PortalException());
 
 		Interview interview = interviewPersistence.findByPrimaryKey(
 			interviewId);
@@ -114,6 +131,7 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		interview.setName(name);
 		interview.setEmailAddress(emailAddress);
 		interview.setQuestionSetId(questionSetId);
+		interview.setExpireDate(expireDate);
 
 		interviewPersistence.updateImpl(interview, false);
 
@@ -127,16 +145,32 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		Interview interview = interviewPersistence.findByPrimaryKey(
 			interviewId);
 
-		// if ((currentDate > expireDate) ||
-		//     (currentDate > startDate + timeLimit) {
-		//    throw TimeLimitExpired
-		// }
+		QuestionSet questionSet = questionSetPersistence.findByPrimaryKey(
+			interview.getQuestionSetId());
 
-		interview.setResponse(response);
+		Calendar currentDate = Calendar.getInstance();
+		currentDate.setTime(new Date());
 
-		interviewPersistence.update(interview, false);
+		Calendar startDateCalendar = Calendar.getInstance();
+		startDateCalendar.setTime(interview.getStartDate());
+		startDateCalendar.add(Calendar.MINUTE, questionSet.getTimeLimit());
 
-		return interview;
+		Calendar expireDateCalendar = Calendar.getInstance();
+		expireDateCalendar.setTime(interview.getExpireDate());
+
+		if (currentDate.after(expireDateCalendar) ||
+				currentDate.after(startDateCalendar)) {
+
+			throw new TimeLimitExpiredException();
+		}
+		else{
+
+			interview.setResponse(response);
+
+			interviewPersistence.update(interview, false);
+
+			return interview;
+		}
 	}
 
 	public Interview updateStartDate(

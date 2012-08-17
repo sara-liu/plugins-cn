@@ -31,9 +31,8 @@ page import="com.liferay.interview.service.InterviewLocalServiceUtil" %><%@
 page import="com.liferay.interview.service.QuestionLocalServiceUtil" %><%@
 page import="com.liferay.interview.service.QuestionSetLocalServiceUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringPool" %><%@
+page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.util.PortalUtil" %>
-
-<%@ page import="javax.portlet.PortletURL" %>
 
 <portlet:defineObjects />
 

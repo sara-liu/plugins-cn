@@ -236,13 +236,13 @@ public interface QuestionSetLocalService extends PersistedModelLocalService {
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
 
 	public com.liferay.interview.model.QuestionSet addQuestionSet(
-		java.lang.String title,
+		java.lang.String title, int timeLimit,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title, int timeLimit,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

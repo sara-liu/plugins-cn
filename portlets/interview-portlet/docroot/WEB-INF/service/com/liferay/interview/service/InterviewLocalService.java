@@ -235,13 +235,9 @@ public interface InterviewLocalService extends PersistedModelLocalService {
 
 	public com.liferay.interview.model.Interview addInterview(
 		java.lang.String name, java.lang.String emailAddress,
-		long questionSetId,
+		long questionSetId, int expireDateMonth, int expireDateDay,
+		int expireDateYear, int expireDateHour, int expireDateMinute,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	public com.liferay.interview.model.Interview addInterviewResponse(
-		long interviewId, java.util.Date startDate, java.lang.String response)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -260,7 +256,20 @@ public interface InterviewLocalService extends PersistedModelLocalService {
 
 	public com.liferay.interview.model.Interview updateInterview(
 		long interviewId, java.lang.String name, java.lang.String emailAddress,
-		long questionSetId,
+		long questionSetId, int expireDateMonth, int expireDateDay,
+		int expireDateYear, int expireDateHour, int expireDateMinute,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.interview.model.Interview updateResponse(
+		long interviewId, java.lang.String response,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.interview.model.Interview updateStartDate(
+		long interviewId, java.util.Date startDate,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

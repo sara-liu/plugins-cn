@@ -32,13 +32,7 @@ try {
 
 	QuestionSet questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interview.getQuestionSetId());
 
-	PortletURL portletURL = renderResponse.createRenderURL();
-
-	SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, 0, portletURL, null, null);
-
-	List results = QuestionLocalServiceUtil.getQuestionSetQuestions(interview.getQuestionSetId(), searchContainer.getStart(), searchContainer.getEnd());
-
-	searchContainer.setResults(results);
+	List results = QuestionLocalServiceUtil.getQuestionSetQuestions(interview.getQuestionSetId());
 %>
 
 	<aui:input type="hidden" name="responseJSONObject" value="<%= responseJSONObject %>" />

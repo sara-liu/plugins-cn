@@ -263,21 +263,15 @@ public class InterviewLocalServiceUtil {
 
 	public static com.liferay.interview.model.Interview addInterview(
 		java.lang.String name, java.lang.String emailAddress,
-		long questionSetId,
+		long questionSetId, int expireDateMonth, int expireDateDay,
+		int expireDateYear, int expireDateHour, int expireDateMinute,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addInterview(name, emailAddress, questionSetId,
-			serviceContext);
-	}
-
-	public static com.liferay.interview.model.Interview addInterviewResponse(
-		long interviewId, java.util.Date startDate, java.lang.String response)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .addInterviewResponse(interviewId, startDate, response);
+			expireDateMonth, expireDateDay, expireDateYear, expireDateHour,
+			expireDateMinute, serviceContext);
 	}
 
 	public static com.liferay.interview.model.Interview getInterview(
@@ -300,13 +294,32 @@ public class InterviewLocalServiceUtil {
 
 	public static com.liferay.interview.model.Interview updateInterview(
 		long interviewId, java.lang.String name, java.lang.String emailAddress,
-		long questionSetId,
+		long questionSetId, int expireDateMonth, int expireDateDay,
+		int expireDateYear, int expireDateHour, int expireDateMinute,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateInterview(interviewId, name, emailAddress,
-			questionSetId, serviceContext);
+			questionSetId, expireDateMonth, expireDateDay, expireDateYear,
+			expireDateHour, expireDateMinute, serviceContext);
+	}
+
+	public static com.liferay.interview.model.Interview updateResponse(
+		long interviewId, java.lang.String response,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().updateResponse(interviewId, response, serviceContext);
+	}
+
+	public static com.liferay.interview.model.Interview updateStartDate(
+		long interviewId, java.util.Date startDate,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateStartDate(interviewId, startDate, serviceContext);
 	}
 
 	public static void clearService() {

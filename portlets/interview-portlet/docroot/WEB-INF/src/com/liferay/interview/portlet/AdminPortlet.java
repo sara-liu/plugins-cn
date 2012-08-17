@@ -32,6 +32,8 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
+import java.util.Calendar;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
@@ -90,17 +92,37 @@ public class AdminPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			actionRequest);
 
+		int expireDateYear = ParamUtil.getInteger(
+			actionRequest, "expireDateYear");
+		int expireDateMonth = ParamUtil.getInteger(
+			actionRequest, "expireDateMonth");
+		int expireDateDay = ParamUtil.getInteger(
+			actionRequest, "expireDateDay");
+		int expireDateHour = ParamUtil.getInteger(
+			actionRequest, "expireDateHour");
+		int expireDateMinute = ParamUtil.getInteger(
+			actionRequest, "expireDateMinute");
+		int expireDateAmPm = ParamUtil.getInteger(
+			actionRequest, "expireDateAmPm");
+
+		if (expireDateAmPm == Calendar.PM) {
+			expireDateAmPm += 12;
+		}
+
 		try {
 			Interview interview = null;
 
 			if (interviewId <= 0) {
 				interview = InterviewLocalServiceUtil.addInterview(
-					name, emailAddress, questionSetId, serviceContext);
+					name, emailAddress, questionSetId, expireDateMonth,
+					expireDateDay, expireDateYear, expireDateHour,
+					expireDateMinute, serviceContext);
 			}
 			else {
 				interview = InterviewLocalServiceUtil.updateInterview(
 					interviewId, name, emailAddress, questionSetId,
-					serviceContext);
+					expireDateMonth, expireDateDay, expireDateYear,
+					expireDateHour, expireDateMinute, serviceContext);
 			}
 
 			currentURL = HttpUtil.setParameter(
@@ -189,6 +211,7 @@ public class AdminPortlet extends MVCPortlet {
 
 		long questionSetId = ParamUtil.getLong(actionRequest, "questionSetId");
 		String title = ParamUtil.getString(actionRequest, "title");
+		int timeLimit = ParamUtil.getInteger(actionRequest, "timeLimit");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			actionRequest);
@@ -198,11 +221,11 @@ public class AdminPortlet extends MVCPortlet {
 
 			if (questionSetId <= 0) {
 				questionSet = QuestionSetLocalServiceUtil.addQuestionSet(
-					title, serviceContext);
+					title, timeLimit, serviceContext);
 			}
 			else {
 				questionSet = QuestionSetLocalServiceUtil.updateQuestionSet(
-					questionSetId, title, serviceContext);
+					questionSetId, title, timeLimit, serviceContext);
 			}
 
 			currentURL = HttpUtil.setParameter(

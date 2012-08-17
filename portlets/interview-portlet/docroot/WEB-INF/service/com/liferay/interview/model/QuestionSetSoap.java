@@ -34,6 +34,7 @@ public class QuestionSetSoap implements Serializable {
 		soapModel.setUserId(model.getUserId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setTimeLimit(model.getTimeLimit());
 		soapModel.setTitle(model.getTitle());
 
 		return soapModel;
@@ -119,6 +120,14 @@ public class QuestionSetSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public int getTimeLimit() {
+		return _timeLimit;
+	}
+
+	public void setTimeLimit(int timeLimit) {
+		_timeLimit = timeLimit;
+	}
+
 	public String getTitle() {
 		return _title;
 	}
@@ -131,5 +140,6 @@ public class QuestionSetSoap implements Serializable {
 	private long _userId;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private int _timeLimit;
 	private String _title;
 }

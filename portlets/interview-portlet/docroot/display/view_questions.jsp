@@ -30,20 +30,21 @@ try {
 	List results = QuestionLocalServiceUtil.getQuestionSetQuestions(questionSetId);
 %>
 
-<portlet:actionURL name="updateInterview" var="updateInterviewURL" />
+<c:if test="<%= Validator.isNull(interview.getResponse()) %>">
+	<portlet:actionURL name="updateInterview" var="updateInterviewURL" />
 
-<aui:form action="<%= updateInterviewURL %>" method="post" name="fm" onSubmit="saveResponse()">
+	<aui:form action="<%= updateInterviewURL %>" method="post" name="fm" onSubmit="saveResponse()">
 
-	<%@ include file="/display/show_questions.jspf" %>
+		<%@ include file="/display/show_questions.jspf" %>
 
-	<aui:input name="interviewId" value="<%= String.valueOf(interview.getInterviewId()) %>" type="hidden" />
-	<aui:input name="startDate" value="<%= startDate %>" type="hidden" />
+		<aui:input name="interviewId" value="<%= String.valueOf(interview.getInterviewId()) %>" type="hidden" />
+		<aui:input name="startDate" value="<%= startDate %>" type="hidden" />
 
-	<aui:button-row>
-		<aui:button type="submit" />
-	</aui:button-row>
-</aui:form>
-
+		<aui:button-row>
+			<aui:button type="submit" />
+		</aui:button-row>
+	</aui:form>
+</c:if>
 <%
 }
 catch (IndexOutOfBoundsException e) {
@@ -52,21 +53,5 @@ catch (NullPointerException npe) {
 }
 %>
 <aui:script>
-	function saveResponse() {
-		var response_temp = new Array(document.<portlet:namespace />fm.<portlet:namespace />response.length);
-
-		for (var i = 0; i < document.<portlet:namespace />fm.<portlet:namespace />response.length; i++) {
-			response_temp[i] = document.<portlet:namespace />fm.<portlet:namespace />response[i].value;
-		}
-
-		var json = {"response" : response_temp};
-
-		var responseValue = document.<portlet:namespace />fm.<portlet:namespace />responseValue;
-		var response = JSON.stringify(json);
-
-		responseValue.value = response;
-
-		submitForm(document.<portlet:namespace />fm);
-	}
 	window.history.forward();
 </aui:script>

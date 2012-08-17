@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
  *
@@ -12,17 +11,30 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/init.jsp" %>
+package com.liferay.interview;
 
-<%@ page import="com.liferay.interview.TimeLimitExpiredException" %><%@
-page import="com.liferay.portal.kernel.util.ParamUtil" %>
+import com.liferay.portal.kernel.exception.PortalException;
 
-<%@ page import="java.lang.IndexOutOfBoundsException" %><%@
-page import="java.lang.NullPointerException" %>
+/**
+ * @author Sara Liu
+ */
+public class TimeLimitExpiredException extends PortalException {
 
-<%@ page import="java.text.SimpleDateFormat" %>
+	public TimeLimitExpiredException() {
+		super();
+	}
 
-<%@ page import="java.util.Date" %><%@
-page import="java.util.List" %>
+	public TimeLimitExpiredException(String msg) {
+		super(msg);
+	}
+
+	public TimeLimitExpiredException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
+
+	public TimeLimitExpiredException(Throwable cause) {
+		super(cause);
+	}
+
+}

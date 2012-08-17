@@ -14,15 +14,16 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ include file="/admin/init.jsp" %>
 
-<%@ page import="com.liferay.interview.TimeLimitExpiredException" %><%@
-page import="com.liferay.portal.kernel.util.ParamUtil" %>
+<liferay-portlet:actionURL portletConfiguration="true" var="configurationURL" />
 
-<%@ page import="java.lang.IndexOutOfBoundsException" %><%@
-page import="java.lang.NullPointerException" %>
+<aui:form action="<%= configurationURL %>" method="post" name="fm">
+	<aui:input name="<%= Constants.CMD %>" value="<%= Constants.UPDATE %>" type="hidden" />
 
-<%@ page import="java.text.SimpleDateFormat" %>
+	<aui:input name="preferences--displayURL--" value="http://127.0.0.1:8080/web/guest/answerPage" />
 
-<%@ page import="java.util.Date" %><%@
-page import="java.util.List" %>
+	<aui:button-row>
+		<aui:button type="submit" />
+	</aui:button-row>
+</aui:form>

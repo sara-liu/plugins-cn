@@ -100,6 +100,14 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 		_modifiedDate = modifiedDate;
 	}
 
+	public int getTimeLimit() {
+		return _timeLimit;
+	}
+
+	public void setTimeLimit(int timeLimit) {
+		_timeLimit = timeLimit;
+	}
+
 	public String getTitle() {
 		return _title;
 	}
@@ -131,6 +139,7 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 		clone.setUserId(getUserId());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
+		clone.setTimeLimit(getTimeLimit());
 		clone.setTitle(getTitle());
 
 		return clone;
@@ -182,7 +191,7 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{questionSetId=");
 		sb.append(getQuestionSetId());
@@ -192,6 +201,8 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", timeLimit=");
+		sb.append(getTimeLimit());
 		sb.append(", title=");
 		sb.append(getTitle());
 		sb.append("}");
@@ -200,7 +211,7 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(22);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.interview.model.QuestionSet");
@@ -223,6 +234,10 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>timeLimit</column-name><column-value><![CDATA[");
+		sb.append(getTimeLimit());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>title</column-name><column-value><![CDATA[");
 		sb.append(getTitle());
 		sb.append("]]></column-value></column>");
@@ -237,5 +252,6 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 	private String _userUuid;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private int _timeLimit;
 	private String _title;
 }

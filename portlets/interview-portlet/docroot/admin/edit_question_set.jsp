@@ -52,6 +52,10 @@ catch (NoSuchQuestionSetException nsqse) {
 		<aui:validator name="required" />
 	</aui:input>
 
+	<aui:input name="timeLimit">
+		<aui:validator name="required" />
+	</aui:input>
+
 	<aui:button-row>
 		<aui:button type="submit" />
 

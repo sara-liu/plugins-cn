@@ -35,7 +35,7 @@ public class QuestionSetCacheModel implements CacheModel<QuestionSet>,
 	Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{questionSetId=");
 		sb.append(questionSetId);
@@ -45,6 +45,8 @@ public class QuestionSetCacheModel implements CacheModel<QuestionSet>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", timeLimit=");
+		sb.append(timeLimit);
 		sb.append(", title=");
 		sb.append(title);
 		sb.append("}");
@@ -72,6 +74,8 @@ public class QuestionSetCacheModel implements CacheModel<QuestionSet>,
 			questionSetImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		questionSetImpl.setTimeLimit(timeLimit);
+
 		if (title == null) {
 			questionSetImpl.setTitle(StringPool.BLANK);
 		}
@@ -88,5 +92,6 @@ public class QuestionSetCacheModel implements CacheModel<QuestionSet>,
 	public long userId;
 	public long createDate;
 	public long modifiedDate;
+	public int timeLimit;
 	public String title;
 }

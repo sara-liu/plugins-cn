@@ -21,24 +21,49 @@ SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 String uuid = PortalUtil.getOriginalServletRequest(request).getParameter("uuid");
 
+Date startDate = null;
+Date expireDate = null;
+
 long interviewId = 0;
+
+int timeLimit = 0;
 
 try{
 	interviewId = ParamUtil.getLong(request, "interviewId");
+
+	if(Validator.isNotNull(uuid)){
+		startDate = InterviewLocalServiceUtil.getInterview(uuid).getStartDate();
+		expireDate = InterviewLocalServiceUtil.getInterview(uuid).getExpireDate();
+
+		long questionSetId = InterviewLocalServiceUtil.getInterview(uuid).getQuestionSetId();
+
+		QuestionSet questionSet = QuestionSetLocalServiceUtil.getQuestionSet(questionSetId);
+
+		timeLimit = questionSet.getTimeLimit();
+	}
 %>
 
-	Tips:Once you start,you must finish in 2 hours...
+	<liferay-ui:error exception="<%= TimeLimitExpiredException.class %>" message="answer-time-is-due" />
 
-	<portlet:renderURL var="updateInterviewURL">
+	<portlet:actionURL name="updateStartDate" var="updateStartDateURL">
 		<portlet:param name="startDate" value="<%= format.format(new Date()) %>" />
 		<portlet:param name="uuid" value="<%= uuid %>" />
-		<portlet:param name="mvcPath" value="/display/view_questions.jsp" />
-	</portlet:renderURL>
+	</portlet:actionURL>
+
+	<c:if test="<%= Validator.isNotNull(expireDate) %>">
+		<aui:field-wrapper name="expireDate">
+			<%= format.format(expireDate) %>
+		</aui:field-wrapper>
+	</c:if>
+
+	<aui:field-wrapper name="tips">
+		Once you start,you must finish in <%= timeLimit %> Minutes...
+	</aui:field-wrapper>
 
 	<c:choose>
-		<c:when test='<%= interviewId == 0 %>'>
+		<c:when test="<%= interviewId == 0 && Validator.isNull(startDate) && expireDate.after(new Date()) %>">
 			<aui:button-row>
-				<aui:button onClick="<%= updateInterviewURL %>" value="start" />
+				<aui:button onClick="<%= updateStartDateURL %>" value="start" />
 			</aui:button-row>
 		</c:when>
 		<c:otherwise>

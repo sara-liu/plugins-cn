@@ -29,5 +29,6 @@ create table Interview_QuestionSet (
 	userId LONG,
 	createDate DATE null,
 	modifiedDate DATE null,
+	timeLimit INTEGER,
 	title VARCHAR(75) null
 );

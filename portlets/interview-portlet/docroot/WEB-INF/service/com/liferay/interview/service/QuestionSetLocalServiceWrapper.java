@@ -255,20 +255,21 @@ public class QuestionSetLocalServiceWrapper implements QuestionSetLocalService,
 	}
 
 	public com.liferay.interview.model.QuestionSet addQuestionSet(
-		java.lang.String title,
+		java.lang.String title, int timeLimit,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _questionSetLocalService.addQuestionSet(title, serviceContext);
+		return _questionSetLocalService.addQuestionSet(title, timeLimit,
+			serviceContext);
 	}
 
 	public com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title, int timeLimit,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _questionSetLocalService.updateQuestionSet(questionSetId, title,
-			serviceContext);
+			timeLimit, serviceContext);
 	}
 
 	/**

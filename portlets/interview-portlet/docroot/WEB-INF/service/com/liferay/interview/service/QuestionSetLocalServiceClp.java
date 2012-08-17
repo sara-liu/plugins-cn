@@ -87,12 +87,12 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 				"setBeanIdentifier", java.lang.String.class);
 
 		_addQuestionSetMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
-				"addQuestionSet", java.lang.String.class,
+				"addQuestionSet", java.lang.String.class, int.class,
 				com.liferay.portal.service.ServiceContext.class);
 
 		_updateQuestionSetMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
 				"updateQuestionSet", long.class, java.lang.String.class,
-				com.liferay.portal.service.ServiceContext.class);
+				int.class, com.liferay.portal.service.ServiceContext.class);
 	}
 
 	public com.liferay.interview.model.QuestionSet addQuestionSet(
@@ -560,14 +560,14 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 	}
 
 	public com.liferay.interview.model.QuestionSet addQuestionSet(
-		java.lang.String title,
+		java.lang.String title, int timeLimit,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_addQuestionSetMethodKey17,
-				ClpSerializer.translateInput(title),
+				ClpSerializer.translateInput(title), timeLimit,
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
@@ -595,14 +595,14 @@ public class QuestionSetLocalServiceClp implements QuestionSetLocalService {
 	}
 
 	public com.liferay.interview.model.QuestionSet updateQuestionSet(
-		long questionSetId, java.lang.String title,
+		long questionSetId, java.lang.String title, int timeLimit,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateQuestionSetMethodKey18,
-				questionSetId, ClpSerializer.translateInput(title),
+				questionSetId, ClpSerializer.translateInput(title), timeLimit,
 				ClpSerializer.translateInput(serviceContext));
 
 		try {

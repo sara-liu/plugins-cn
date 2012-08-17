@@ -40,7 +40,7 @@
 	>
 
 		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcPath" value="/admin/view_question.jsp" />
+			<portlet:param name="mvcPath" value="/admin/view_question_set.jsp" />
 			<portlet:param name="questionSetId" value="<%= String.valueOf(questionSet.getQuestionSetId()) %>" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 		</portlet:renderURL>

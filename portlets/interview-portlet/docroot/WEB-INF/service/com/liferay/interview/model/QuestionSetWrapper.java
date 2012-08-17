@@ -150,6 +150,24 @@ public class QuestionSetWrapper implements QuestionSet,
 	}
 
 	/**
+	* Returns the time limit of this question set.
+	*
+	* @return the time limit of this question set
+	*/
+	public int getTimeLimit() {
+		return _questionSet.getTimeLimit();
+	}
+
+	/**
+	* Sets the time limit of this question set.
+	*
+	* @param timeLimit the time limit of this question set
+	*/
+	public void setTimeLimit(int timeLimit) {
+		_questionSet.setTimeLimit(timeLimit);
+	}
+
+	/**
 	* Returns the title of this question set.
 	*
 	* @return the title of this question set
