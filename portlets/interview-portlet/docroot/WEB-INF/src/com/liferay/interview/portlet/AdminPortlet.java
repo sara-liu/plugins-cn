@@ -89,9 +89,6 @@ public class AdminPortlet extends MVCPortlet {
 		String emailAddress = ParamUtil.getString(
 			actionRequest, "emailAddress");
 
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			actionRequest);
-
 		int expireDateYear = ParamUtil.getInteger(
 			actionRequest, "expireDateYear");
 		int expireDateMonth = ParamUtil.getInteger(
@@ -108,6 +105,9 @@ public class AdminPortlet extends MVCPortlet {
 		if (expireDateAmPm == Calendar.PM) {
 			expireDateAmPm += 12;
 		}
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			actionRequest);
 
 		try {
 			Interview interview = null;

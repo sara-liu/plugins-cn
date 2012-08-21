@@ -63,10 +63,10 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 			{ "userId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "timeLimit", Types.INTEGER },
-			{ "title", Types.VARCHAR }
+			{ "title", Types.VARCHAR },
+			{ "timeLimit", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table Interview_QuestionSet (questionSetId LONG not null primary key,userId LONG,createDate DATE null,modifiedDate DATE null,timeLimit INTEGER,title VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table Interview_QuestionSet (questionSetId LONG not null primary key,userId LONG,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,timeLimit INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table Interview_QuestionSet";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -148,14 +148,6 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 		_modifiedDate = modifiedDate;
 	}
 
-	public int getTimeLimit() {
-		return _timeLimit;
-	}
-
-	public void setTimeLimit(int timeLimit) {
-		_timeLimit = timeLimit;
-	}
-
 	public String getTitle() {
 		if (_title == null) {
 			return StringPool.BLANK;
@@ -167,6 +159,14 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 
 	public void setTitle(String title) {
 		_title = title;
+	}
+
+	public int getTimeLimit() {
+		return _timeLimit;
+	}
+
+	public void setTimeLimit(int timeLimit) {
+		_timeLimit = timeLimit;
 	}
 
 	@Override
@@ -203,8 +203,8 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 		questionSetImpl.setUserId(getUserId());
 		questionSetImpl.setCreateDate(getCreateDate());
 		questionSetImpl.setModifiedDate(getModifiedDate());
-		questionSetImpl.setTimeLimit(getTimeLimit());
 		questionSetImpl.setTitle(getTitle());
+		questionSetImpl.setTimeLimit(getTimeLimit());
 
 		questionSetImpl.resetOriginalValues();
 
@@ -285,8 +285,6 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 			questionSetCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		questionSetCacheModel.timeLimit = getTimeLimit();
-
 		questionSetCacheModel.title = getTitle();
 
 		String title = questionSetCacheModel.title;
@@ -294,6 +292,8 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 		if ((title != null) && (title.length() == 0)) {
 			questionSetCacheModel.title = null;
 		}
+
+		questionSetCacheModel.timeLimit = getTimeLimit();
 
 		return questionSetCacheModel;
 	}
@@ -310,10 +310,10 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", timeLimit=");
-		sb.append(getTimeLimit());
 		sb.append(", title=");
 		sb.append(getTitle());
+		sb.append(", timeLimit=");
+		sb.append(getTimeLimit());
 		sb.append("}");
 
 		return sb.toString();
@@ -343,12 +343,12 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>timeLimit</column-name><column-value><![CDATA[");
-		sb.append(getTimeLimit());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>title</column-name><column-value><![CDATA[");
 		sb.append(getTitle());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>timeLimit</column-name><column-value><![CDATA[");
+		sb.append(getTimeLimit());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -365,8 +365,8 @@ public class QuestionSetModelImpl extends BaseModelImpl<QuestionSet>
 	private String _userUuid;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private int _timeLimit;
 	private String _title;
+	private int _timeLimit;
 	private transient ExpandoBridge _expandoBridge;
 	private QuestionSet _escapedModelProxy;
 }

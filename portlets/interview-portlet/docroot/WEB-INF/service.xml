@@ -62,13 +62,16 @@
 		<column name="userId" type="long" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
-		<column name="timeLimit" type="int" />
 
 		<!-- Other fields -->
 
 		<column name="title" type="String" />
+		<column name="timeLimit" type="int" />
 	</entity>
 	<exceptions>
+		<exception>CannotEditStartDate</exception>
+		<exception>CannotResubmitResponse</exception>
+		<exception>ExpireDate</exception>
 		<exception>InterviewEmailAddress</exception>
 		<exception>InterviewName</exception>
 		<exception>QuestionTitle</exception>

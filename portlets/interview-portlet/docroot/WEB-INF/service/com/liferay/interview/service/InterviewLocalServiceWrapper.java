@@ -295,20 +295,20 @@ public class InterviewLocalServiceWrapper implements InterviewLocalService,
 	}
 
 	public com.liferay.interview.model.Interview updateResponse(
-		long interviewId, java.lang.String response,
+		java.lang.String uuid, java.lang.String response,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _interviewLocalService.updateResponse(interviewId, response,
+		return _interviewLocalService.updateResponse(uuid, response,
 			serviceContext);
 	}
 
 	public com.liferay.interview.model.Interview updateStartDate(
-		long interviewId, java.util.Date startDate,
+		java.lang.String uuid, java.util.Date startDate,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _interviewLocalService.updateStartDate(interviewId, startDate,
+		return _interviewLocalService.updateStartDate(uuid, startDate,
 			serviceContext);
 	}
 

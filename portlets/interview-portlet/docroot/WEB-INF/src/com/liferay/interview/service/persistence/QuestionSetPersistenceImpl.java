@@ -305,8 +305,8 @@ public class QuestionSetPersistenceImpl extends BasePersistenceImpl<QuestionSet>
 		questionSetImpl.setUserId(questionSet.getUserId());
 		questionSetImpl.setCreateDate(questionSet.getCreateDate());
 		questionSetImpl.setModifiedDate(questionSet.getModifiedDate());
-		questionSetImpl.setTimeLimit(questionSet.getTimeLimit());
 		questionSetImpl.setTitle(questionSet.getTitle());
+		questionSetImpl.setTimeLimit(questionSet.getTimeLimit());
 
 		return questionSetImpl;
 	}

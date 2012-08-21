@@ -100,20 +100,20 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 		_modifiedDate = modifiedDate;
 	}
 
-	public int getTimeLimit() {
-		return _timeLimit;
-	}
-
-	public void setTimeLimit(int timeLimit) {
-		_timeLimit = timeLimit;
-	}
-
 	public String getTitle() {
 		return _title;
 	}
 
 	public void setTitle(String title) {
 		_title = title;
+	}
+
+	public int getTimeLimit() {
+		return _timeLimit;
+	}
+
+	public void setTimeLimit(int timeLimit) {
+		_timeLimit = timeLimit;
 	}
 
 	public void persist() throws SystemException {
@@ -139,8 +139,8 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 		clone.setUserId(getUserId());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
-		clone.setTimeLimit(getTimeLimit());
 		clone.setTitle(getTitle());
+		clone.setTimeLimit(getTimeLimit());
 
 		return clone;
 	}
@@ -201,10 +201,10 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", timeLimit=");
-		sb.append(getTimeLimit());
 		sb.append(", title=");
 		sb.append(getTitle());
+		sb.append(", timeLimit=");
+		sb.append(getTimeLimit());
 		sb.append("}");
 
 		return sb.toString();
@@ -234,12 +234,12 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>timeLimit</column-name><column-value><![CDATA[");
-		sb.append(getTimeLimit());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>title</column-name><column-value><![CDATA[");
 		sb.append(getTitle());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>timeLimit</column-name><column-value><![CDATA[");
+		sb.append(getTimeLimit());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -252,6 +252,6 @@ public class QuestionSetClp extends BaseModelImpl<QuestionSet>
 	private String _userUuid;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private int _timeLimit;
 	private String _title;
+	private int _timeLimit;
 }

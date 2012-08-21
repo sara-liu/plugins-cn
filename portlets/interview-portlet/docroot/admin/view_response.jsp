@@ -21,71 +21,51 @@ String backURL = ParamUtil.getString(request, "backURL");
 
 long interviewId = ParamUtil.getLong(request, "interviewId");
 
-Interview interview = null;
+Interview interview = InterviewLocalServiceUtil.getInterview(interviewId);
 
-try {
-	interview = InterviewLocalServiceUtil.getInterview(interviewId);
+QuestionSet questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interview.getQuestionSetId());
 
-	String responseDemo = interview.getResponse().replace("&#034", StringPool.QUOTE);
-
-	JSONObject responseJSONObject = JSONFactoryUtil.createJSONObject(responseDemo);
-
-	QuestionSet questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interview.getQuestionSetId());
-
-	List results = QuestionLocalServiceUtil.getQuestionSetQuestions(interview.getQuestionSetId());
+List<Question> questions= QuestionLocalServiceUtil.getQuestionSetQuestions(interview.getQuestionSetId());
 %>
 
-	<aui:input type="hidden" name="responseJSONObject" value="<%= responseJSONObject %>" />
-
-	<liferay-ui:header
-		backURL="<%= backURL %>"
-		title="<%= interview.getName() %>"
-	/>
+<liferay-ui:header
+	backURL="<%= backURL %>"
+	title="<%= interview.getName() %>"
+/>
 
 <%
-	for (Object result : results) {
-		Question question = (Question)result;
+for (Question question : questions) {
 %>
 
-		<div class="question-content">
-			<table>
-				<tr>
-					<td>
-						<%= question.getTitle() %>&nbsp;&nbsp;
-					</td>
-					<td>
-						<%= question.getDescription() %>
-					</td>
-				</tr>
-			</table>
-		</div>
+	<aui:field-wrapper label="<%= HtmlUtil.escape(question.getTitle()) %>">
+		<div class="description"><%= HtmlUtil.escape(question.getDescription()) %></div>
 
 		<c:choose>
-			<c:when test="<%= question.getType() == 1 %>">
-				<aui:input label="" name="response" id="<%= question.getTitle() %>" disabled="true" />
+			<c:when test="<%= question.getType() == QuestionTypeConstants.ONE_LINE %>">
+				<input value="AAA" id="<portlet:namespace />response<%= question.getQuestionId() %>" type="input" readonly="readonly" />
 			</c:when>
-			<c:otherwise>
-				<div class="question-response">
-					<aui:input cssClass="lfr-textarea-container" cols="18" rows="6" id="<%= question.getTitle() %>" label="" name="response" type="textarea" value="" disabled="true" />
-				</div>
-			</c:otherwise>
+			<c:when test="<%= question.getType() == QuestionTypeConstants.MULTIPLE_LINES %>">
+				<textarea value="BBB" id="<portlet:namespace />response<%= question.getQuestionId() %>" readonly="readonly"></textarea>
+			</c:when>
 		</c:choose>
+	</aui:field-wrapper>
 
 <%
-	}
-
-}
-catch (NoSuchInterviewException nsie) {
 }
 %>
 
 <aui:script>
-	var _json = document.getElementById("<portlet:namespace />responseJSONObject");
-	var obj = eval("("+_json.value+")");
-	var jsonArray = document.getElementsByName("<portlet:namespace />response");
-	var i = 0;
-	for (var j in obj) {
-		jsonArray[i].value = obj[j];
-		i++;
-	}
+	Alloy.on('domready', function (event) {
+		var responseJSON = <%= interview.getResponse() %>;
+
+		var keys = Object.keys(responseJSON);
+
+		for (var i = 0; i < keys.length; i++) {
+			var key = keys[i];
+
+			var inputElement = document.getElementById("<portlet:namespace />response" + key);
+
+			inputElement.value = responseJSON[key];
+		}
+	});
 </aui:script>

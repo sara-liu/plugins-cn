@@ -132,20 +132,6 @@ public interface QuestionSetModel extends BaseModel<QuestionSet> {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the time limit of this question set.
-	 *
-	 * @return the time limit of this question set
-	 */
-	public int getTimeLimit();
-
-	/**
-	 * Sets the time limit of this question set.
-	 *
-	 * @param timeLimit the time limit of this question set
-	 */
-	public void setTimeLimit(int timeLimit);
-
-	/**
 	 * Returns the title of this question set.
 	 *
 	 * @return the title of this question set
@@ -159,6 +145,20 @@ public interface QuestionSetModel extends BaseModel<QuestionSet> {
 	 * @param title the title of this question set
 	 */
 	public void setTitle(String title);
+
+	/**
+	 * Returns the time limit of this question set.
+	 *
+	 * @return the time limit of this question set
+	 */
+	public int getTimeLimit();
+
+	/**
+	 * Sets the time limit of this question set.
+	 *
+	 * @param timeLimit the time limit of this question set
+	 */
+	public void setTimeLimit(int timeLimit);
 
 	public boolean isNew();
 

@@ -16,7 +16,9 @@ package com.liferay.interview.portlet;
 
 import com.liferay.interview.TimeLimitExpiredException;
 import com.liferay.interview.model.Interview;
+import com.liferay.interview.model.Question;
 import com.liferay.interview.service.InterviewLocalServiceUtil;
+import com.liferay.interview.service.QuestionLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -32,6 +34,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -43,26 +46,32 @@ public class DisplayPortlet extends MVCPortlet {
 
 	public void updateInterview(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws ParseException, PortalException, SystemException {
+		throws Exception {
 
-		long interviewId = ParamUtil.getLong(actionRequest, "interviewId");
+		String uuid = ParamUtil.getString(actionRequest, "uuid");
 
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				actionRequest);
-
-		String responseDemo[] = actionRequest.getParameterValues("response");
+		Interview interview = InterviewLocalServiceUtil.getInterview(uuid);
 
 		JSONObject json = JSONFactoryUtil.createJSONObject();
 
+		List<Question> questions =
+			QuestionLocalServiceUtil.getQuestionSetQuestions(
+				interview.getQuestionSetId());
+
+		for (Question question : questions) {
+			long questionId = question.getQuestionId();
+			String response = ParamUtil.getString(
+				actionRequest, "response" + questionId);
+
+			json.put(String.valueOf(questionId), response);
+		}
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			actionRequest);
+
 		try {
-			for (int i = 0; i < responseDemo.length; i++) {
-				json.put("question" + (i+1), responseDemo[i]);
-			}
-
-			String response = json.toString();
-
 			InterviewLocalServiceUtil.updateResponse(
-				interviewId, response, serviceContext);
+				interview.getUuid(), json.toString(), serviceContext);
 		}
 		catch (Exception e) {
 			if (e instanceof TimeLimitExpiredException) {
@@ -70,19 +79,17 @@ public class DisplayPortlet extends MVCPortlet {
 
 				actionResponse.setRenderParameter(
 					"mvcPath", "/display/view.jsp");
-				actionResponse.setRenderParameter(
-					"interviewId", String.valueOf(interviewId));
-
-				return;
+				actionResponse.setRenderParameter("uuid", uuid);
 			}
-
+			else {
+				throw e;
+			}
 		}
-
 	}
 
 	public void updateStartDate(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws ParseException, PortalException, SystemException{
+		throws Exception {
 
 		String uuid = ParamUtil.getString(actionRequest, "uuid");
 
@@ -91,20 +98,16 @@ public class DisplayPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			actionRequest);
 
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date startDate = format.parse(ParamUtil.getString(actionRequest,
-			"startDate"));
-
 		try{
 			InterviewLocalServiceUtil.updateStartDate(
-				interview.getInterviewId(), startDate, serviceContext);
-
-			actionResponse.setRenderParameter(
-				"mvcPath", "/display/view_questions.jsp");
-			actionResponse.setRenderParameter("uuid", uuid);
+				interview.getUuid(), new Date(), serviceContext);
 		}
 		catch (Exception e) {
-			}
 		}
+
+		actionResponse.setRenderParameter(
+			"mvcPath", "/display/view_questions.jsp");
+		actionResponse.setRenderParameter("uuid", uuid);
+	}
 
 }

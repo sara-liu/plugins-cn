@@ -17,68 +17,47 @@
 <%@ include file="/display/init.jsp" %>
 
 <%
-SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 String uuid = PortalUtil.getOriginalServletRequest(request).getParameter("uuid");
 
+Interview interview = null;
 Date startDate = null;
 Date expireDate = null;
+QuestionSet questionSet = null;
+String interviewResponse = null;
 
-long interviewId = 0;
 
-int timeLimit = 0;
+try {
+	interview = InterviewLocalServiceUtil.getInterview(uuid);
 
-try{
-	interviewId = ParamUtil.getLong(request, "interviewId");
+	startDate = interview.getStartDate();
+	expireDate = interview.getExpireDate();
+	questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interview.getQuestionSetId());
+	interviewResponse = interview.getResponse();
+}
+catch (Exception e) {
+}
 
-	if(Validator.isNotNull(uuid)){
-		startDate = InterviewLocalServiceUtil.getInterview(uuid).getStartDate();
-		expireDate = InterviewLocalServiceUtil.getInterview(uuid).getExpireDate();
-
-		long questionSetId = InterviewLocalServiceUtil.getInterview(uuid).getQuestionSetId();
-
-		QuestionSet questionSet = QuestionSetLocalServiceUtil.getQuestionSet(questionSetId);
-
-		timeLimit = questionSet.getTimeLimit();
-	}
 %>
 
-	<liferay-ui:error exception="<%= TimeLimitExpiredException.class %>" message="answer-time-is-due" />
+<c:choose>
+	<c:when test="<%= interview == null %>">
+		<liferay-ui:message key="no-interview-selected" />
+	</c:when>
+	<c:when test="<%= Validator.isNotNull(interviewResponse) %>">
+		<liferay-ui:message key="you-have-already-submitted-your-interview" />
+	</c:when>
+	<c:when test="<%= (interview != null) && InterviewUtil.isExpired(startDate, questionSet.getTimeLimit(), expireDate) %>">
+		<liferay-ui:message key="interview-has-expired" />
+	</c:when>
+	<c:otherwise>
+		Once you start, you must finish in <%= questionSet.getTimeLimit() %> minutes.
 
-	<portlet:actionURL name="updateStartDate" var="updateStartDateURL">
-		<portlet:param name="startDate" value="<%= format.format(new Date()) %>" />
-		<portlet:param name="uuid" value="<%= uuid %>" />
-	</portlet:actionURL>
+		<portlet:actionURL name="updateStartDate" var="updateStartDateURL">
+			<portlet:param name="uuid" value="<%= uuid %>" />
+		</portlet:actionURL>
 
-	<c:if test="<%= Validator.isNotNull(expireDate) %>">
-		<aui:field-wrapper name="expireDate">
-			<%= format.format(expireDate) %>
-		</aui:field-wrapper>
-	</c:if>
-
-	<aui:field-wrapper name="tips">
-		Once you start,you must finish in <%= timeLimit %> Minutes...
-	</aui:field-wrapper>
-
-	<c:choose>
-		<c:when test="<%= interviewId == 0 && Validator.isNull(startDate) && expireDate.after(new Date()) %>">
-			<aui:button-row>
-				<aui:button onClick="<%= updateStartDateURL %>" value="start" />
-			</aui:button-row>
-		</c:when>
-		<c:otherwise>
-			<aui:button-row>
-				<aui:button value="start" disabled = "true" />
-			</aui:button-row>
-		</c:otherwise>
-	</c:choose>
-
-<%
-}
-catch (NullPointerException npe) {
-}
-%>
-
-<aui:script>
-	window.history.forward();
-</aui:script>
+		<aui:button-row>
+			<aui:button onClick="<%= updateStartDateURL %>" value="start" />
+		</aui:button-row>
+	</c:otherwise>
+</c:choose>

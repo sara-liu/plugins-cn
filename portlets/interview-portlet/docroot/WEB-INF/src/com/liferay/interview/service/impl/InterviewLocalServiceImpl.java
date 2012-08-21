@@ -14,12 +14,16 @@
 
 package com.liferay.interview.service.impl;
 
+import com.liferay.interview.CannotEditStartDateException;
+import com.liferay.interview.CannotResubmitResponseException;
+import com.liferay.interview.ExpireDateException;
 import com.liferay.interview.InterviewEmailAddressException;
 import com.liferay.interview.InterviewNameException;
 import com.liferay.interview.TimeLimitExpiredException;
 import com.liferay.interview.model.Interview;
 import com.liferay.interview.model.QuestionSet;
 import com.liferay.interview.service.base.InterviewLocalServiceBaseImpl;
+import com.liferay.interview.util.InterviewUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
@@ -48,7 +52,7 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 
 		Date expireDate = PortalUtil.getDate(
 			expireDateMonth, expireDateDay, expireDateYear, expireDateHour,
-			expireDateMinute, new PortalException());
+			expireDateMinute, new ExpireDateException());
 
 		long interviewId = counterLocalService.increment();
 
@@ -60,8 +64,8 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		interview.setModifiedDate(serviceContext.getModifiedDate(now));
 		interview.setName(name);
 		interview.setEmailAddress(emailAddress);
-		interview.setQuestionSetId(questionSetId);
 		interview.setExpireDate(expireDate);
+		interview.setQuestionSetId(questionSetId);
 
 		interviewPersistence.update(interview, false);
 
@@ -121,7 +125,7 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 
 		Date expireDate = PortalUtil.getDate(
 			expireDateMonth, expireDateDay, expireDateYear, expireDateHour,
-			expireDateMinute, new PortalException());
+			expireDateMinute, new ExpireDateException());
 
 		Interview interview = interviewPersistence.findByPrimaryKey(
 			interviewId);
@@ -130,8 +134,8 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		interview.setModifiedDate(serviceContext.getModifiedDate(null));
 		interview.setName(name);
 		interview.setEmailAddress(emailAddress);
-		interview.setQuestionSetId(questionSetId);
 		interview.setExpireDate(expireDate);
+		interview.setQuestionSetId(questionSetId);
 
 		interviewPersistence.updateImpl(interview, false);
 
@@ -139,46 +143,40 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 	}
 
 	public Interview updateResponse(
-			long interviewId, String response, ServiceContext serviceContext)
+			String uuid, String response, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Interview interview = interviewPersistence.findByPrimaryKey(
-			interviewId);
+		Interview interview = getInterview(uuid);
+
+		if (Validator.isNotNull(interview.getResponse())) {
+			throw new CannotResubmitResponseException();
+		}
 
 		QuestionSet questionSet = questionSetPersistence.findByPrimaryKey(
 			interview.getQuestionSetId());
 
-		Calendar currentDate = Calendar.getInstance();
-		currentDate.setTime(new Date());
-
-		Calendar startDateCalendar = Calendar.getInstance();
-		startDateCalendar.setTime(interview.getStartDate());
-		startDateCalendar.add(Calendar.MINUTE, questionSet.getTimeLimit());
-
-		Calendar expireDateCalendar = Calendar.getInstance();
-		expireDateCalendar.setTime(interview.getExpireDate());
-
-		if (currentDate.after(expireDateCalendar) ||
-				currentDate.after(startDateCalendar)) {
-
+		if (InterviewUtil.isExpired(
+				interview.getStartDate(), questionSet.getTimeLimit(),
+				interview.getExpireDate())) {
 			throw new TimeLimitExpiredException();
 		}
-		else{
 
-			interview.setResponse(response);
+		interview.setResponse(response);
 
-			interviewPersistence.update(interview, false);
+		interviewPersistence.update(interview, false);
 
-			return interview;
-		}
+		return interview;
 	}
 
 	public Interview updateStartDate(
-			long interviewId, Date startDate, ServiceContext serviceContext)
+			String uuid, Date startDate, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Interview interview = interviewPersistence.findByPrimaryKey(
-			interviewId);
+		Interview interview = getInterview(uuid);
+
+		if (interview.getStartDate() != null) {
+			throw new CannotEditStartDateException();
+		}
 
 		interview.setStartDate(startDate);
 

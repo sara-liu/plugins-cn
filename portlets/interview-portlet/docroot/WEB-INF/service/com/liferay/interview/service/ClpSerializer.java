@@ -370,17 +370,17 @@ public class ClpSerializer {
 
 				method3.invoke(newModel, value3);
 
-				Method method4 = newModelClass.getMethod("setTimeLimit",
-						new Class[] { Integer.TYPE });
+				Method method4 = newModelClass.getMethod("setTitle",
+						new Class[] { String.class });
 
-				Integer value4 = new Integer(oldCplModel.getTimeLimit());
+				String value4 = oldCplModel.getTitle();
 
 				method4.invoke(newModel, value4);
 
-				Method method5 = newModelClass.getMethod("setTitle",
-						new Class[] { String.class });
+				Method method5 = newModelClass.getMethod("setTimeLimit",
+						new Class[] { Integer.TYPE });
 
-				String value5 = oldCplModel.getTitle();
+				Integer value5 = new Integer(oldCplModel.getTimeLimit());
 
 				method5.invoke(newModel, value5);
 
@@ -668,18 +668,18 @@ public class ClpSerializer {
 
 				newModel.setModifiedDate(value3);
 
-				Method method4 = oldModelClass.getMethod("getTimeLimit");
+				Method method4 = oldModelClass.getMethod("getTitle");
 
-				Integer value4 = (Integer)method4.invoke(oldModel,
+				String value4 = (String)method4.invoke(oldModel, (Object[])null);
+
+				newModel.setTitle(value4);
+
+				Method method5 = oldModelClass.getMethod("getTimeLimit");
+
+				Integer value5 = (Integer)method5.invoke(oldModel,
 						(Object[])null);
 
-				newModel.setTimeLimit(value4);
-
-				Method method5 = oldModelClass.getMethod("getTitle");
-
-				String value5 = (String)method5.invoke(oldModel, (Object[])null);
-
-				newModel.setTitle(value5);
+				newModel.setTimeLimit(value5);
 
 				return newModel;
 			}

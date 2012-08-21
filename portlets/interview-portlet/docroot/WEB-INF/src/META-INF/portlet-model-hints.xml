@@ -32,7 +32,7 @@
 		<field name="userId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="timeLimit" type="int" />
 		<field name="title" type="String" />
+		<field name="timeLimit" type="int" />
 	</model>
 </model-hints>

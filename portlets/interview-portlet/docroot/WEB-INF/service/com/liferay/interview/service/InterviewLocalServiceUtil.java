@@ -306,20 +306,19 @@ public class InterviewLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.Interview updateResponse(
-		long interviewId, java.lang.String response,
+		java.lang.String uuid, java.lang.String response,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().updateResponse(interviewId, response, serviceContext);
+		return getService().updateResponse(uuid, response, serviceContext);
 	}
 
 	public static com.liferay.interview.model.Interview updateStartDate(
-		long interviewId, java.util.Date startDate,
+		java.lang.String uuid, java.util.Date startDate,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .updateStartDate(interviewId, startDate, serviceContext);
+		return getService().updateStartDate(uuid, startDate, serviceContext);
 	}
 
 	public static void clearService() {

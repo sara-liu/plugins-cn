@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
  *
@@ -12,18 +11,30 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/admin/init.jsp" %>
+package com.liferay.interview;
 
-<liferay-portlet:actionURL portletConfiguration="true" var="configurationURL" />
+import com.liferay.portal.kernel.exception.PortalException;
 
-<aui:form action="<%= configurationURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" value="<%= Constants.UPDATE %>" type="hidden" />
+/**
+ * @author Sara Liu
+ */
+public class ExpireDateException extends PortalException {
 
-	<aui:input name="preferences--displayURL--" />
+	public ExpireDateException() {
+		super();
+	}
 
-	<aui:button-row>
-		<aui:button type="submit" />
-	</aui:button-row>
-</aui:form>
+	public ExpireDateException(String msg) {
+		super(msg);
+	}
+
+	public ExpireDateException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
+
+	public ExpireDateException(Throwable cause) {
+		super(cause);
+	}
+
+}

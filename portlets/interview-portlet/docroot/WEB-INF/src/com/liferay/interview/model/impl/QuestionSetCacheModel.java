@@ -45,10 +45,10 @@ public class QuestionSetCacheModel implements CacheModel<QuestionSet>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", timeLimit=");
-		sb.append(timeLimit);
 		sb.append(", title=");
 		sb.append(title);
+		sb.append(", timeLimit=");
+		sb.append(timeLimit);
 		sb.append("}");
 
 		return sb.toString();
@@ -74,14 +74,14 @@ public class QuestionSetCacheModel implements CacheModel<QuestionSet>,
 			questionSetImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		questionSetImpl.setTimeLimit(timeLimit);
-
 		if (title == null) {
 			questionSetImpl.setTitle(StringPool.BLANK);
 		}
 		else {
 			questionSetImpl.setTitle(title);
 		}
+
+		questionSetImpl.setTimeLimit(timeLimit);
 
 		questionSetImpl.resetOriginalValues();
 
@@ -92,6 +92,6 @@ public class QuestionSetCacheModel implements CacheModel<QuestionSet>,
 	public long userId;
 	public long createDate;
 	public long modifiedDate;
-	public int timeLimit;
 	public String title;
+	public int timeLimit;
 }

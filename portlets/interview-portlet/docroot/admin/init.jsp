@@ -20,7 +20,6 @@
 page import="com.liferay.interview.InterviewNameException" %><%@
 page import="com.liferay.interview.QuestionSetTitleException" %><%@
 page import="com.liferay.interview.QuestionTitleException" %><%@
-page import="com.liferay.interview.util.QuestionTypeConstants" %><%@
 page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
 page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
 page import="com.liferay.portal.kernel.json.JSONFactoryUtil" %><%@
@@ -28,8 +27,6 @@ page import="com.liferay.portal.kernel.json.JSONObject" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %>
-
-<%@ page import="java.util.List" %>
 
 <%@ page import="javax.portlet.PortletPreferences" %>
 

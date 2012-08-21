@@ -105,11 +105,13 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 				com.liferay.portal.service.ServiceContext.class);
 
 		_updateResponseMethodKey21 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateResponse", long.class, java.lang.String.class,
+				"updateResponse", java.lang.String.class,
+				java.lang.String.class,
 				com.liferay.portal.service.ServiceContext.class);
 
 		_updateStartDateMethodKey22 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateStartDate", long.class, java.util.Date.class,
+				"updateStartDate", java.lang.String.class,
+				java.util.Date.class,
 				com.liferay.portal.service.ServiceContext.class);
 	}
 
@@ -723,14 +725,15 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 	}
 
 	public com.liferay.interview.model.Interview updateResponse(
-		long interviewId, java.lang.String response,
+		java.lang.String uuid, java.lang.String response,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateResponseMethodKey21,
-				interviewId, ClpSerializer.translateInput(response),
+				ClpSerializer.translateInput(uuid),
+				ClpSerializer.translateInput(response),
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
@@ -758,14 +761,15 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 	}
 
 	public com.liferay.interview.model.Interview updateStartDate(
-		long interviewId, java.util.Date startDate,
+		java.lang.String uuid, java.util.Date startDate,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateStartDateMethodKey22,
-				interviewId, ClpSerializer.translateInput(startDate),
+				ClpSerializer.translateInput(uuid),
+				ClpSerializer.translateInput(startDate),
 				ClpSerializer.translateInput(serviceContext));
 
 		try {
