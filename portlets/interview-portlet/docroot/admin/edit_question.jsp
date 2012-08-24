@@ -45,7 +45,6 @@ catch (NoSuchQuestionException nsqe) {
 	<aui:model-context bean="<%= question %>" model="<%= Question.class %>" />
 
 	<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
-	<aui:input name="currentURL" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="questionId" type="hidden" />
 	<aui:input name="questionSetId" type="hidden" value="<%= String.valueOf(questionSetId) %>" />

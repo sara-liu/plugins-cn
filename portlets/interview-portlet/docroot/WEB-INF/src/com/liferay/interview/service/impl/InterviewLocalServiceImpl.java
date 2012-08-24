@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortalUtil;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

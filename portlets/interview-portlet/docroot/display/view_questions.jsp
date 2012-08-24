@@ -17,6 +17,8 @@
 <%@ include file="/display/init.jsp" %>
 
 <%
+SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 String uuid = ParamUtil.getString(request, "uuid");
 
 Interview interview = InterviewLocalServiceUtil.getInterview(uuid);
@@ -28,6 +30,7 @@ List<Question> questions = QuestionLocalServiceUtil.getQuestionSetQuestions(inte
 
 <aui:form action="<%= updateInterviewURL %>" method="post" name="fm">
 	<aui:input name="uuid" value="<%= interview.getUuid() %>" type="hidden" />
+	<aui:input name="startDate" value="<%= format.format((new Date())) %>" type="hidden" />
 
 	<%
 	for (Question question : questions) {
@@ -41,7 +44,10 @@ List<Question> questions = QuestionLocalServiceUtil.getQuestionSetQuestions(inte
 					<input id="<portlet:namespace />response<%= question.getQuestionId() %>" name="<portlet:namespace />response<%= question.getQuestionId() %>" type="input" />
 				</c:when>
 				<c:when test="<%= question.getType() == QuestionTypeConstants.MULTIPLE_LINES %>">
-					<textarea id="<portlet:namespace />response<%= question.getQuestionId() %>"></textarea>
+					<textarea id="<portlet:namespace />response<%= question.getQuestionId() %>" name="<portlet:namespace />response<%= question.getQuestionId() %>"></textarea>
+				</c:when>
+				<c:when test="<%= question.getType() == QuestionTypeConstants.RECORDED %>">
+					<textarea id="<portlet:namespace />response<%= question.getQuestionId() %>" name="<portlet:namespace />response<%= question.getQuestionId() %>"></textarea>
 				</c:when>
 			</c:choose>
 		</aui:field-wrapper>

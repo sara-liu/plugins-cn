@@ -42,10 +42,13 @@ for (Question question : questions) {
 
 		<c:choose>
 			<c:when test="<%= question.getType() == QuestionTypeConstants.ONE_LINE %>">
-				<input value="AAA" id="<portlet:namespace />response<%= question.getQuestionId() %>" type="input" readonly="readonly" />
+				<input id="<portlet:namespace />response<%= question.getQuestionId() %>" type="input" readonly="readonly" />
 			</c:when>
 			<c:when test="<%= question.getType() == QuestionTypeConstants.MULTIPLE_LINES %>">
-				<textarea value="BBB" id="<portlet:namespace />response<%= question.getQuestionId() %>" readonly="readonly"></textarea>
+				<textarea id="<portlet:namespace />response<%= question.getQuestionId() %>" readonly="readonly"></textarea>
+			</c:when>
+			<c:when test="<%= question.getType() == QuestionTypeConstants.RECORDED %>">
+				<textarea id="<portlet:namespace />response<%= question.getQuestionId() %>" readonly="readonly"></textarea>
 			</c:when>
 		</c:choose>
 	</aui:field-wrapper>

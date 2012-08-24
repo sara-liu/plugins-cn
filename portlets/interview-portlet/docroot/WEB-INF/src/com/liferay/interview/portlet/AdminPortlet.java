@@ -19,8 +19,6 @@ import com.liferay.interview.InterviewNameException;
 import com.liferay.interview.QuestionSetTitleException;
 import com.liferay.interview.QuestionTitleException;
 import com.liferay.interview.model.Interview;
-import com.liferay.interview.model.Question;
-import com.liferay.interview.model.QuestionSet;
 import com.liferay.interview.service.InterviewLocalServiceUtil;
 import com.liferay.interview.service.QuestionLocalServiceUtil;
 import com.liferay.interview.service.QuestionSetLocalServiceUtil;
@@ -155,8 +153,6 @@ public class AdminPortlet extends MVCPortlet {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		String currentURL = ParamUtil.getString(actionRequest, "currentURL");
-
 		long questionId = ParamUtil.getLong(actionRequest, "questionId");
 		long questionSetId = ParamUtil.getLong(actionRequest, "questionSetId");
 		String title = ParamUtil.getString(actionRequest, "title");
@@ -167,20 +163,16 @@ public class AdminPortlet extends MVCPortlet {
 			actionRequest);
 
 		try {
-			Question question = null;
 
 			if (questionId <= 0) {
-				question = QuestionLocalServiceUtil.addQuestion(
+				QuestionLocalServiceUtil.addQuestion(
 					questionSetId, title, description, type, serviceContext);
 			}
 			else {
-				question = QuestionLocalServiceUtil.updateQuestion(
+				QuestionLocalServiceUtil.updateQuestion(
 					questionId, title, description, type, serviceContext);
 			}
 
-			currentURL = HttpUtil.setParameter(
-				currentURL, actionResponse.getNamespace() + "questionId",
-				question.getQuestionId());
 		}
 		catch (Exception e) {
 			if (e instanceof QuestionTitleException ) {
@@ -189,7 +181,6 @@ public class AdminPortlet extends MVCPortlet {
 
 				actionResponse.setRenderParameter(
 					"mvcPath", "/admin/edit_question.jsp");
-				actionResponse.setRenderParameter("redirect", currentURL);
 
 				return;
 			}
@@ -198,16 +189,12 @@ public class AdminPortlet extends MVCPortlet {
 			}
 		}
 
-		actionRequest.setAttribute(WebKeys.REDIRECT, currentURL);
-
 		sendRedirect(actionRequest, actionResponse);
 	}
 
 	public void updateQuestionSet(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
-
-		String currentURL = ParamUtil.getString(actionRequest, "currentURL");
 
 		long questionSetId = ParamUtil.getLong(actionRequest, "questionSetId");
 		String title = ParamUtil.getString(actionRequest, "title");
@@ -217,20 +204,16 @@ public class AdminPortlet extends MVCPortlet {
 			actionRequest);
 
 		try {
-			QuestionSet questionSet = null;
 
 			if (questionSetId <= 0) {
-				questionSet = QuestionSetLocalServiceUtil.addQuestionSet(
+				QuestionSetLocalServiceUtil.addQuestionSet(
 					title, timeLimit, serviceContext);
 			}
 			else {
-				questionSet = QuestionSetLocalServiceUtil.updateQuestionSet(
+				QuestionSetLocalServiceUtil.updateQuestionSet(
 					questionSetId, title, timeLimit, serviceContext);
 			}
 
-			currentURL = HttpUtil.setParameter(
-				currentURL, actionResponse.getNamespace() + "questionSetId",
-				questionSet.getQuestionSetId());
 		}
 		catch (Exception e) {
 			if (e instanceof QuestionSetTitleException ) {
@@ -239,7 +222,6 @@ public class AdminPortlet extends MVCPortlet {
 
 				actionResponse.setRenderParameter(
 					"mvcPath", "/admin/edit_question_set.jsp");
-				actionResponse.setRenderParameter("redirect", currentURL);
 
 				return;
 			}
@@ -247,8 +229,6 @@ public class AdminPortlet extends MVCPortlet {
 				throw e;
 			}
 		}
-
-		actionRequest.setAttribute(WebKeys.REDIRECT, currentURL);
 
 		sendRedirect(actionRequest, actionResponse);
 	}

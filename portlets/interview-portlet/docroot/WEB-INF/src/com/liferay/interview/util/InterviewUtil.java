@@ -22,7 +22,6 @@ import java.util.Date;
  */
 public class InterviewUtil {
 
-
 	public static boolean isExpired(
 		Date startDate, int timeLimit, Date expireDate) {
 
@@ -46,10 +45,10 @@ public class InterviewUtil {
 		if (currentDate.after(expireDateCalendar) ||
 			currentDate.after(startDateCalendar)) {
 
-			return  true;
+			return true;
 		}
 
 		return false;
 	}
-	
+
 }

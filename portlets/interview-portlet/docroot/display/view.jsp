@@ -20,19 +20,27 @@
 String uuid = PortalUtil.getOriginalServletRequest(request).getParameter("uuid");
 
 Interview interview = null;
+Interview interviewRsponsed = null;
 Date startDate = null;
 Date expireDate = null;
+int timeLimit = 0;
+long interviewId = 0;
 QuestionSet questionSet = null;
 String interviewResponse = null;
 
-
 try {
-	interview = InterviewLocalServiceUtil.getInterview(uuid);
+	if (Validator.isNotNull(uuid)){
+		interview = InterviewLocalServiceUtil.getInterview(uuid);
+		interviewResponse = interview.getResponse();
+	}
 
-	startDate = interview.getStartDate();
-	expireDate = interview.getExpireDate();
-	questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interview.getQuestionSetId());
-	interviewResponse = interview.getResponse();
+ 	interviewId = ParamUtil.getLong(request, "interviewId");
+	interviewRsponsed = InterviewLocalServiceUtil.getInterview(interviewId);
+
+	startDate = interviewRsponsed.getStartDate();
+	expireDate = interviewRsponsed.getExpireDate();
+	questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interviewRsponsed.getQuestionSetId());
+	timeLimit = questionSet.getTimeLimit();
 }
 catch (Exception e) {
 }
@@ -40,21 +48,22 @@ catch (Exception e) {
 %>
 
 <c:choose>
-	<c:when test="<%= interview == null %>">
+	<c:when test="<%= interview == null && Validator.isNull(interviewId) %>">
 		<liferay-ui:message key="no-interview-selected" />
 	</c:when>
-	<c:when test="<%= Validator.isNotNull(interviewResponse) %>">
-		<liferay-ui:message key="you-have-already-submitted-your-interview" />
-	</c:when>
-	<c:when test="<%= (interview != null) && InterviewUtil.isExpired(startDate, questionSet.getTimeLimit(), expireDate) %>">
+	<c:when test="<%= (Validator.isNotNull(interviewId)) && InterviewUtil.isExpired(startDate, timeLimit, expireDate) %>">
 		<liferay-ui:message key="interview-has-expired" />
 	</c:when>
+	<c:when test="<%= (interviewId != 0) || (Validator.isNotNull(interviewResponse)) %>">
+		<liferay-ui:message key="you-have-already-submitted-your-interview" />
+	</c:when>
 	<c:otherwise>
-		Once you start, you must finish in <%= questionSet.getTimeLimit() %> minutes.
+		Once you start, you must finish in <%= timeLimit %> minutes.
 
-		<portlet:actionURL name="updateStartDate" var="updateStartDateURL">
+		<portlet:renderURL var="updateStartDateURL">
+			<portlet:param name="mvcPath" value="/display/view_questions.jsp" />
 			<portlet:param name="uuid" value="<%= uuid %>" />
-		</portlet:actionURL>
+		</portlet:renderURL>
 
 		<aui:button-row>
 			<aui:button onClick="<%= updateStartDateURL %>" value="start" />
