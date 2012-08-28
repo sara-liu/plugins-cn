@@ -110,9 +110,7 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 				com.liferay.portal.service.ServiceContext.class);
 
 		_updateStartDateMethodKey22 = new MethodKey(_classLoaderProxy.getClassName(),
-				"updateStartDate", java.lang.String.class,
-				java.util.Date.class,
-				com.liferay.portal.service.ServiceContext.class);
+				"updateStartDate", java.lang.String.class, java.util.Date.class);
 	}
 
 	public com.liferay.interview.model.Interview addInterview(
@@ -761,16 +759,14 @@ public class InterviewLocalServiceClp implements InterviewLocalService {
 	}
 
 	public com.liferay.interview.model.Interview updateStartDate(
-		java.lang.String uuid, java.util.Date startDate,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		java.lang.String uuid, java.util.Date startDate)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		MethodHandler methodHandler = new MethodHandler(_updateStartDateMethodKey22,
 				ClpSerializer.translateInput(uuid),
-				ClpSerializer.translateInput(startDate),
-				ClpSerializer.translateInput(serviceContext));
+				ClpSerializer.translateInput(startDate));
 
 		try {
 			returnObj = _classLoaderProxy.invoke(methodHandler);

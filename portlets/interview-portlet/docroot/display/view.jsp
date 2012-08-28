@@ -32,9 +32,11 @@ try {
 	if (Validator.isNotNull(uuid)){
 		interview = InterviewLocalServiceUtil.getInterview(uuid);
 		interviewResponse = interview.getResponse();
+		questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interview.getQuestionSetId());
+		timeLimit = questionSet.getTimeLimit();
 	}
 
- 	interviewId = ParamUtil.getLong(request, "interviewId");
+	interviewId = ParamUtil.getLong(request, "interviewId");
 	interviewRsponsed = InterviewLocalServiceUtil.getInterview(interviewId);
 
 	startDate = interviewRsponsed.getStartDate();
@@ -44,7 +46,6 @@ try {
 }
 catch (Exception e) {
 }
-
 %>
 
 <c:choose>

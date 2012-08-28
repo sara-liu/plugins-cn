@@ -269,8 +269,7 @@ public interface InterviewLocalService extends PersistedModelLocalService {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.interview.model.Interview updateStartDate(
-		java.lang.String uuid, java.util.Date startDate,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		java.lang.String uuid, java.util.Date startDate)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 }

@@ -17,9 +17,13 @@
 <%@ include file="/display/init.jsp" %>
 
 <%
-SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 String uuid = ParamUtil.getString(request, "uuid");
+
+try{
+	InterviewLocalServiceUtil.updateStartDate(uuid, new Date());
+}
+catch (CannotEditStartDateException e){
+}
 
 Interview interview = InterviewLocalServiceUtil.getInterview(uuid);
 
@@ -30,7 +34,6 @@ List<Question> questions = QuestionLocalServiceUtil.getQuestionSetQuestions(inte
 
 <aui:form action="<%= updateInterviewURL %>" method="post" name="fm">
 	<aui:input name="uuid" value="<%= interview.getUuid() %>" type="hidden" />
-	<aui:input name="startDate" value="<%= format.format((new Date())) %>" type="hidden" />
 
 	<%
 	for (Question question : questions) {

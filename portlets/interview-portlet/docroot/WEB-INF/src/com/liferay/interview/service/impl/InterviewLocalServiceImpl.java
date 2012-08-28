@@ -167,8 +167,7 @@ public class InterviewLocalServiceImpl extends InterviewLocalServiceBaseImpl {
 		return interview;
 	}
 
-	public Interview updateStartDate(
-			String uuid, Date startDate, ServiceContext serviceContext)
+	public Interview updateStartDate(String uuid, Date startDate)
 		throws PortalException, SystemException {
 
 		Interview interview = getInterview(uuid);

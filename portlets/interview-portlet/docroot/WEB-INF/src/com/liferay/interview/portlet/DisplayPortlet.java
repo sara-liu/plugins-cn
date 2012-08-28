@@ -26,10 +26,6 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -68,8 +64,6 @@ public class DisplayPortlet extends MVCPortlet {
 			actionRequest);
 
 		try {
-			updateStartDate(actionRequest, actionResponse);
-
 			InterviewLocalServiceUtil.updateResponse(
 				interview.getUuid(), json.toString(), serviceContext);
 		}
@@ -86,29 +80,6 @@ public class DisplayPortlet extends MVCPortlet {
 		actionResponse.setRenderParameter("mvcPath", "/display/view.jsp");
 		actionResponse.setRenderParameter(
 			"interviewId", String.valueOf(interviewId));
-	}
-
-	public void updateStartDate(
-			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws Exception {
-
-		String uuid = ParamUtil.getString(actionRequest, "uuid");
-
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date startDate = format.parse(
-			ParamUtil.getString(actionRequest, "startDate"));
-
-		Interview interview = InterviewLocalServiceUtil.getInterview(uuid);
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			actionRequest);
-
-		try{
-			InterviewLocalServiceUtil.updateStartDate(
-				interview.getUuid(), startDate, serviceContext);
-		}
-		catch (Exception e) {
-		}
 	}
 
 }

@@ -304,12 +304,10 @@ public class InterviewLocalServiceWrapper implements InterviewLocalService,
 	}
 
 	public com.liferay.interview.model.Interview updateStartDate(
-		java.lang.String uuid, java.util.Date startDate,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		java.lang.String uuid, java.util.Date startDate)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _interviewLocalService.updateStartDate(uuid, startDate,
-			serviceContext);
+		return _interviewLocalService.updateStartDate(uuid, startDate);
 	}
 
 	/**

@@ -314,11 +314,10 @@ public class InterviewLocalServiceUtil {
 	}
 
 	public static com.liferay.interview.model.Interview updateStartDate(
-		java.lang.String uuid, java.util.Date startDate,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		java.lang.String uuid, java.util.Date startDate)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().updateStartDate(uuid, startDate, serviceContext);
+		return getService().updateStartDate(uuid, startDate);
 	}
 
 	public static void clearService() {
