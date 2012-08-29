@@ -14,6 +14,8 @@
 
 package com.liferay.interview.portlet;
 
+import com.liferay.interview.CannotResubmitResponseException;
+import com.liferay.interview.TimeLimitExpiredException;
 import com.liferay.interview.model.Interview;
 import com.liferay.interview.model.Question;
 import com.liferay.interview.service.InterviewLocalServiceUtil;
@@ -44,13 +46,11 @@ public class DisplayPortlet extends MVCPortlet {
 
 		Interview interview = InterviewLocalServiceUtil.getInterview(uuid);
 
-		long interviewId = interview.getInterviewId();
-
 		JSONObject json = JSONFactoryUtil.createJSONObject();
 
 		List<Question> questions =
 			QuestionLocalServiceUtil.getQuestionSetQuestions(
-			interview.getQuestionSetId());
+				interview.getQuestionSetId());
 
 		for (Question question : questions) {
 			long questionId = question.getQuestionId();
@@ -68,18 +68,17 @@ public class DisplayPortlet extends MVCPortlet {
 				interview.getUuid(), json.toString(), serviceContext);
 		}
 		catch (Exception e) {
+			if (e instanceof CannotResubmitResponseException ||
+				e instanceof TimeLimitExpiredException) {
 
-				SessionErrors.add(actionRequest, e.getClass().getName());
+			SessionErrors.add(actionRequest, e.getClass().getName());
 
-				actionResponse.setRenderParameter(
-					"mvcPath", "/display/view.jsp");
-				actionResponse.setRenderParameter(
-					"interviewId", String.valueOf(interviewId));
-			}
+			actionResponse.setRenderParameter("mvcPath", "/display/error.jsp");
 
-		actionResponse.setRenderParameter("mvcPath", "/display/view.jsp");
-		actionResponse.setRenderParameter(
-			"interviewId", String.valueOf(interviewId));
+			return;
+		}
+
+		actionResponse.setRenderParameter("mvcPath", "/display/success.jsp");
 	}
 
 }

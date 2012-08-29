@@ -163,7 +163,6 @@ public class AdminPortlet extends MVCPortlet {
 			actionRequest);
 
 		try {
-
 			if (questionId <= 0) {
 				QuestionLocalServiceUtil.addQuestion(
 					questionSetId, title, description, type, serviceContext);
@@ -204,7 +203,6 @@ public class AdminPortlet extends MVCPortlet {
 			actionRequest);
 
 		try {
-
 			if (questionSetId <= 0) {
 				QuestionSetLocalServiceUtil.addQuestionSet(
 					title, timeLimit, serviceContext);

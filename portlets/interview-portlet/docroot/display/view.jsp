@@ -19,29 +19,26 @@
 <%
 String uuid = PortalUtil.getOriginalServletRequest(request).getParameter("uuid");
 
+if (Validator.isNull(uuid)) {
+	uuid = ParamUtil.get(request, "uuid");
+}
+
 Interview interview = null;
-Interview interviewRsponsed = null;
 Date startDate = null;
 Date expireDate = null;
-int timeLimit = 0;
-long interviewId = 0;
-QuestionSet questionSet = null;
 String interviewResponse = null;
+QuestionSet questionSet = null;
+int timeLimit = 0;
 
 try {
-	if (Validator.isNotNull(uuid)){
-		interview = InterviewLocalServiceUtil.getInterview(uuid);
-		interviewResponse = interview.getResponse();
-		questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interview.getQuestionSetId());
-		timeLimit = questionSet.getTimeLimit();
-	}
+	interview = InterviewLocalServiceUtil.getInterview(uuid);
 
-	interviewId = ParamUtil.getLong(request, "interviewId");
-	interviewRsponsed = InterviewLocalServiceUtil.getInterview(interviewId);
+	startDate = interview.getStartDate();
+	expireDate = interview.getExpireDate();
+	interviewResponse = interview.getResponse();
 
-	startDate = interviewRsponsed.getStartDate();
-	expireDate = interviewRsponsed.getExpireDate();
-	questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interviewRsponsed.getQuestionSetId());
+	questionSet = QuestionSetLocalServiceUtil.getQuestionSet(interview.getQuestionSetId());
+
 	timeLimit = questionSet.getTimeLimit();
 }
 catch (Exception e) {
@@ -49,17 +46,17 @@ catch (Exception e) {
 %>
 
 <c:choose>
-	<c:when test="<%= interview == null && Validator.isNull(interviewId) %>">
+	<c:when test="<%= interview == null %>">
 		<liferay-ui:message key="no-interview-selected" />
 	</c:when>
-	<c:when test="<%= (Validator.isNotNull(interviewId)) && InterviewUtil.isExpired(startDate, timeLimit, expireDate) %>">
-		<liferay-ui:message key="interview-has-expired" />
-	</c:when>
-	<c:when test="<%= (interviewId != 0) || (Validator.isNotNull(interviewResponse)) %>">
+	<c:when test="<%= Validator.isNotNull(interviewResponse) %>">
 		<liferay-ui:message key="you-have-already-submitted-your-interview" />
 	</c:when>
+	<c:when test="<%= (interview != null) && InterviewUtil.isExpired(startDate, timeLimit, expireDate) %>">
+		<liferay-ui:message key="interview-has-expired" />
+	</c:when>
 	<c:otherwise>
-		Once you start, you must finish in <%= timeLimit %> minutes.
+		<liferay-ui:message arguments="<%= timeLimit %>" key="time-limit-x-minutes" />
 
 		<portlet:renderURL var="updateStartDateURL">
 			<portlet:param name="mvcPath" value="/display/view_questions.jsp" />
