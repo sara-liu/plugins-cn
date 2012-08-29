@@ -71,11 +71,13 @@ public class DisplayPortlet extends MVCPortlet {
 			if (e instanceof CannotResubmitResponseException ||
 				e instanceof TimeLimitExpiredException) {
 
-			SessionErrors.add(actionRequest, e.getClass().getName());
+				SessionErrors.add(actionRequest, e.getClass().getName());
 
-			actionResponse.setRenderParameter("mvcPath", "/display/error.jsp");
+				actionResponse.setRenderParameter(
+					"mvcPath", "/display/error.jsp");
 
-			return;
+				return;
+			}
 		}
 
 		actionResponse.setRenderParameter("mvcPath", "/display/success.jsp");

@@ -20,7 +20,7 @@
 String uuid = PortalUtil.getOriginalServletRequest(request).getParameter("uuid");
 
 if (Validator.isNull(uuid)) {
-	uuid = ParamUtil.get(request, "uuid");
+	uuid = ParamUtil.getString(request, "uuid");
 }
 
 Interview interview = null;
@@ -56,7 +56,7 @@ catch (Exception e) {
 		<liferay-ui:message key="interview-has-expired" />
 	</c:when>
 	<c:otherwise>
-		<liferay-ui:message arguments="<%= timeLimit %>" key="time-limit-x-minutes" />
+		<liferay-ui:message key="the-time-limit-by-minutes-are:" /><%= timeLimit %>
 
 		<portlet:renderURL var="updateStartDateURL">
 			<portlet:param name="mvcPath" value="/display/view_questions.jsp" />
